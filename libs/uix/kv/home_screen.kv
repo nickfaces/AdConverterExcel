@@ -1,0 +1,20 @@
+<HomeScreen>
+
+    MDLabel:
+        text: 'CHOOSE FILE'
+        halign: "center"
+        pos_hint: {"center_x": 0.5, "center_y": 0.7}
+        size_hint_x: .8
+
+    MDTextField:
+        id: input_file
+        halign: "center"
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+        size_hint_x: .8
+
+    MDRaisedButton:
+        text: "GOTO SETTINGS"
+        pos_hint: {"center_x": 0.5, "center_y": 0.3}
+        on_release:
+            root.check_connection()
+            root.manager.set_current("settings")
