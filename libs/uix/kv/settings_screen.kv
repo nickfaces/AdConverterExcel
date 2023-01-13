@@ -1,13 +1,245 @@
+<IconListItem>
+
+    IconLeftWidget:
+        icon: root.icon
+
 <SettingsScreen>
 
-    MDLabel:
-        text: 'CHOOSE COLUMN'
-        halign: "center"
-        pos_hint: {"center_x": 0.5, "center_y": 0.9}
-        size_hint_x: .8
-
-
-    MDRaisedButton:
-        text: "BACK"
-        pos_hint: {"center_x": 0.5, "center_y": 0.3}
-        on_release: root.manager.goback()
+    MDBoxLayout:
+        orientation: 'vertical'
+        spacing: 10
+        padding: 10
+        MDBoxLayout:
+            orientation: 'horizontal'
+            spacing: 10
+            padding: 10
+            MDLabel:
+                text: 'Поле импорта'
+                theme_text_color: "Custom"
+                text_color: app.theme_cls.primary_color
+                font_size: '20sp'
+                size_hint_x: .3
+                pos_hint: {'center_x': .5, 'center_y': .5}
+            MDLabel:
+                text: 'Поле'
+                theme_text_color: "Custom"
+                text_color: app.theme_cls.primary_color
+                font_size: '20sp'
+                size_hint_x: .3
+                pos_hint: {'center_x': .5, 'center_y': .5}
+            MDLabel:
+                text: 'Значение'
+                theme_text_color: "Custom"
+                text_color: app.theme_cls.primary_color
+                font_size: '20sp'
+                size_hint_x: .3
+                pos_hint: {'center_x': .5, 'center_y': .5}
+        MDBoxLayout:
+            orientation: 'horizontal'
+            spacing: 10
+            padding: 10
+            MDLabel:
+                text: 'Тип клиента'
+                size_hint_x: .3
+            MDDropDownItem:
+                id: drop_item
+                size_hint_x: .3
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                text: 'Item'
+                on_release: root.drop()
+            MDTextField:
+                text: ""
+                pos_hint: {"center_x": .5, "center_y": .5}
+                size_hint_x: .3
+        MDBoxLayout:
+            orientation: 'horizontal'
+            spacing: 10
+            padding: 10
+            MDLabel:
+                text: 'Полное наименование'
+                size_hint_x: .3
+            MDDropDownItem:
+                size_hint_x: .3
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                text: 'Item'
+                on_release: print("Press item")
+            MDTextField:
+                text: ""
+                pos_hint: {"center_x": .5, "center_y": .5}
+                size_hint_x: .3
+        MDBoxLayout:
+            orientation: 'horizontal'
+            spacing: 10
+            padding: 10
+            MDLabel:
+                size_hint_x: .3
+                text: 'Краткое наименование'
+            MDDropDownItem:
+                size_hint_x: .3
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                text: 'Item'
+                on_release: print("Press item")
+            MDTextField:
+                text: ""
+                pos_hint: {"center_x": .5, "center_y": .5}
+                size_hint_x: .3
+        MDBoxLayout:
+            orientation: 'horizontal'
+            spacing: 10
+            padding: 10
+            MDLabel:
+                text: 'ИНН'
+                size_hint_x: .3
+            MDDropDownItem:
+                size_hint_x: .3
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                text: 'Item'
+                on_release: print("Press item")
+            MDTextField:
+                text: ""
+                pos_hint: {"center_x": .5, "center_y": .5}
+                size_hint_x: .3
+        MDBoxLayout:
+            orientation: 'horizontal'
+            spacing: 10
+            padding: 10
+            MDLabel:
+                text: 'КПП'
+                size_hint_x: .3
+            MDDropDownItem:
+                size_hint_x: .3
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                text: 'Item'
+                on_release: print("Press item")
+            MDTextField:
+                text: ""
+                pos_hint: {"center_x": .5, "center_y": .5}
+                size_hint_x: .3
+        MDBoxLayout:
+            orientation: 'horizontal'
+            spacing: 10
+            padding: 10
+            MDLabel:
+                text: 'ОГРН'
+                size_hint_x: .3
+            MDDropDownItem:
+                size_hint_x: .3
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                text: 'Item'
+                on_release: print("Press item")
+            MDTextField:
+                text: ""
+                pos_hint: {"center_x": .5, "center_y": .5}
+                size_hint_x: .3
+        MDBoxLayout:
+            orientation: 'horizontal'
+            spacing: 10
+            padding: 10
+            MDLabel:
+                text: 'Номер свидетельства ИП'
+                size_hint_x: .3
+            MDDropDownItem:
+                size_hint_x: .3
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                text: 'Item'
+                on_release: print("Press item")
+            MDTextField:
+                text: ""
+                pos_hint: {"center_x": .5, "center_y": .5}
+                size_hint_x: .3
+        MDBoxLayout:
+            orientation: 'horizontal'
+            spacing: 10
+            padding: 10
+            MDLabel:
+                text: 'Дата выдачи ИП'
+                size_hint_x: .3
+            MDDropDownItem:
+                size_hint_x: .3
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                text: 'Item'
+                on_release: print("Press item")
+            MDTextField:
+                text: ""
+                pos_hint: {"center_x": .5, "center_y": .5}
+                size_hint_x: .3
+        MDBoxLayout:
+            orientation: 'horizontal'
+            spacing: 10
+            padding: 10
+            MDLabel:
+                text: 'Папка'
+                size_hint_x: .3
+            MDDropDownItem:
+                size_hint_x: .3
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                text: 'Item'
+                on_release: print("Press item")
+            MDTextField:
+                text: ""
+                pos_hint: {"center_x": .5, "center_y": .5}
+                size_hint_x: .3
+        MDBoxLayout:
+            orientation: 'horizontal'
+            spacing: 10
+            padding: 10
+            MDLabel:
+                text: 'Примечание'
+                size_hint_x: .3
+            MDDropDownItem:
+                size_hint_x: .3
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                text: 'Item'
+                on_release: print("Press item")
+            MDTextField:
+                text: ""
+                pos_hint: {"center_x": .5, "center_y": .5}
+                size_hint_x: .3
+        MDBoxLayout:
+            orientation: 'horizontal'
+            spacing: 10
+            padding: 10
+            MDLabel:
+                text: 'Юридический адрес'
+                size_hint_x: .3
+            MDDropDownItem:
+                size_hint_x: .3
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                text: 'Item'
+                on_release: print("Press item")
+            MDTextField:
+                text: ""
+                pos_hint: {"center_x": .5, "center_y": .5}
+                size_hint_x: .3
+        MDBoxLayout:
+            orientation: 'horizontal'
+            spacing: 10
+            padding: 10
+            MDLabel:
+                text: 'Фактический адрес'
+                size_hint_x: .3
+            MDDropDownItem:
+                size_hint_x: .3
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                text: 'Item'
+                on_release: print("Press item")
+            MDTextField:
+                text: ""
+                pos_hint: {"center_x": .5, "center_y": .5}
+                size_hint_x: .3
+        MDBoxLayout:
+            orientation: 'horizontal'
+            spacing: 10
+            padding: 10
+            MDLabel:
+                text: 'Почтовый адрес'
+                size_hint_x: .3
+            MDDropDownItem:
+                size_hint_x: .3
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                text: 'Item'
+                on_release: print("Press item")
+            MDTextField:
+                text: ""
+                pos_hint: {"center_x": .5, "center_y": .5}
+                size_hint_x: .3
