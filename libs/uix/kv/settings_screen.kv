@@ -18,6 +18,7 @@
                 theme_text_color: "Custom"
                 text_color: app.theme_cls.primary_color
                 font_size: '20sp'
+                bold: True
                 size_hint_x: .3
                 pos_hint: {'center_x': .5, 'center_y': .5}
             MDLabel:
@@ -25,6 +26,7 @@
                 theme_text_color: "Custom"
                 text_color: app.theme_cls.primary_color
                 font_size: '20sp'
+                bold: True
                 size_hint_x: .3
                 pos_hint: {'center_x': .5, 'center_y': .5}
             MDLabel:
@@ -32,6 +34,7 @@
                 theme_text_color: "Custom"
                 text_color: app.theme_cls.primary_color
                 font_size: '20sp'
+                bold: True
                 size_hint_x: .3
                 pos_hint: {'center_x': .5, 'center_y': .5}
         MDBoxLayout:
@@ -40,13 +43,14 @@
             padding: 10
             MDLabel:
                 text: 'Тип клиента'
+                bold: True
                 size_hint_x: .3
             MDDropDownItem:
-                id: drop_item
+                id: clients_type
                 size_hint_x: .3
                 pos_hint: {'center_x': .5, 'center_y': .5}
                 text: 'Item'
-                on_release: root.drop()
+                on_release: root.drop('clients_type')
             MDTextField:
                 text: ""
                 pos_hint: {"center_x": .5, "center_y": .5}
@@ -57,12 +61,14 @@
             padding: 10
             MDLabel:
                 text: 'Полное наименование'
+                bold: True
                 size_hint_x: .3
             MDDropDownItem:
+                id: full_name
                 size_hint_x: .3
                 pos_hint: {'center_x': .5, 'center_y': .5}
                 text: 'Item'
-                on_release: print("Press item")
+                on_release: root.drop('full_name')
             MDTextField:
                 text: ""
                 pos_hint: {"center_x": .5, "center_y": .5}
@@ -72,13 +78,15 @@
             spacing: 10
             padding: 10
             MDLabel:
+                bold: True
                 size_hint_x: .3
                 text: 'Краткое наименование'
             MDDropDownItem:
+                id: short_name
                 size_hint_x: .3
                 pos_hint: {'center_x': .5, 'center_y': .5}
                 text: 'Item'
-                on_release: print("Press item")
+                on_release: root.drop('short_name')
             MDTextField:
                 text: ""
                 pos_hint: {"center_x": .5, "center_y": .5}
@@ -89,12 +97,14 @@
             padding: 10
             MDLabel:
                 text: 'ИНН'
+                bold: True
                 size_hint_x: .3
             MDDropDownItem:
+                id: inn
                 size_hint_x: .3
                 pos_hint: {'center_x': .5, 'center_y': .5}
                 text: 'Item'
-                on_release: print("Press item")
+                on_release: root.drop('inn')
             MDTextField:
                 text: ""
                 pos_hint: {"center_x": .5, "center_y": .5}
@@ -105,12 +115,14 @@
             padding: 10
             MDLabel:
                 text: 'КПП'
+                bold: True
                 size_hint_x: .3
             MDDropDownItem:
+                id: kpp
                 size_hint_x: .3
                 pos_hint: {'center_x': .5, 'center_y': .5}
                 text: 'Item'
-                on_release: print("Press item")
+                on_release: root.drop('kpp')
             MDTextField:
                 text: ""
                 pos_hint: {"center_x": .5, "center_y": .5}
@@ -121,12 +133,14 @@
             padding: 10
             MDLabel:
                 text: 'ОГРН'
+                bold: True
                 size_hint_x: .3
             MDDropDownItem:
+                id: ogrn
                 size_hint_x: .3
                 pos_hint: {'center_x': .5, 'center_y': .5}
                 text: 'Item'
-                on_release: print("Press item")
+                on_release: root.drop('ogrn')
             MDTextField:
                 text: ""
                 pos_hint: {"center_x": .5, "center_y": .5}
@@ -137,12 +151,14 @@
             padding: 10
             MDLabel:
                 text: 'Номер свидетельства ИП'
+                bold: True
                 size_hint_x: .3
             MDDropDownItem:
+                id: number_ip
                 size_hint_x: .3
                 pos_hint: {'center_x': .5, 'center_y': .5}
                 text: 'Item'
-                on_release: print("Press item")
+                on_release: root.drop('number_ip')
             MDTextField:
                 text: ""
                 pos_hint: {"center_x": .5, "center_y": .5}
@@ -153,12 +169,14 @@
             padding: 10
             MDLabel:
                 text: 'Дата выдачи ИП'
+                bold: True
                 size_hint_x: .3
             MDDropDownItem:
+                id: date_ip
                 size_hint_x: .3
                 pos_hint: {'center_x': .5, 'center_y': .5}
                 text: 'Item'
-                on_release: print("Press item")
+                on_release: root.drop('date_ip')
             MDTextField:
                 text: ""
                 pos_hint: {"center_x": .5, "center_y": .5}
@@ -169,12 +187,14 @@
             padding: 10
             MDLabel:
                 text: 'Папка'
+                bold: True
                 size_hint_x: .3
             MDDropDownItem:
+                id: folder
                 size_hint_x: .3
                 pos_hint: {'center_x': .5, 'center_y': .5}
                 text: 'Item'
-                on_release: print("Press item")
+                on_release: root.drop('folder')
             MDTextField:
                 text: ""
                 pos_hint: {"center_x": .5, "center_y": .5}
@@ -185,12 +205,14 @@
             padding: 10
             MDLabel:
                 text: 'Примечание'
+                bold: True
                 size_hint_x: .3
             MDDropDownItem:
+                id: comment
                 size_hint_x: .3
                 pos_hint: {'center_x': .5, 'center_y': .5}
                 text: 'Item'
-                on_release: print("Press item")
+                on_release: root.drop('comment')
             MDTextField:
                 text: ""
                 pos_hint: {"center_x": .5, "center_y": .5}
@@ -201,12 +223,14 @@
             padding: 10
             MDLabel:
                 text: 'Юридический адрес'
+                bold: True
                 size_hint_x: .3
             MDDropDownItem:
+                id: legal_address
                 size_hint_x: .3
                 pos_hint: {'center_x': .5, 'center_y': .5}
                 text: 'Item'
-                on_release: print("Press item")
+                on_release: root.drop('legal_address')
             MDTextField:
                 text: ""
                 pos_hint: {"center_x": .5, "center_y": .5}
@@ -217,12 +241,14 @@
             padding: 10
             MDLabel:
                 text: 'Фактический адрес'
+                bold: True
                 size_hint_x: .3
             MDDropDownItem:
+                id: fact_address
                 size_hint_x: .3
                 pos_hint: {'center_x': .5, 'center_y': .5}
                 text: 'Item'
-                on_release: print("Press item")
+                on_release: root.drop('fact_address')
             MDTextField:
                 text: ""
                 pos_hint: {"center_x": .5, "center_y": .5}
@@ -233,13 +259,22 @@
             padding: 10
             MDLabel:
                 text: 'Почтовый адрес'
+                bold: True
                 size_hint_x: .3
             MDDropDownItem:
+                id: post_address
                 size_hint_x: .3
                 pos_hint: {'center_x': .5, 'center_y': .5}
                 text: 'Item'
-                on_release: print("Press item")
+                on_release: root.drop('post_address')
             MDTextField:
                 text: ""
                 pos_hint: {"center_x": .5, "center_y": .5}
                 size_hint_x: .3
+
+        MDRaisedButton:
+            text: "Импорт"
+            pos_hint: {"center_x": 0.5, "center_y": 0.3}
+            on_release: root.import_file()
+
+

@@ -1,36 +1,87 @@
+<Check@MDCheckbox>:
+    group: 'group'
+    size_hint: None, None
+    size: dp(48), dp(48)
+
 <HomeScreen>
+
+    MDLabel:
+        text: 'Что импортировать?'
+        bold: True
+        halign: "center"
+        font_size: '20sp'
+        size_hint_x: .8
+        pos_hint: {'center_x': .5, 'center_y': .9}
+    MDLabel:
+        text: 'Клиенты'
+        halign: "left"
+        size_hint_x: .4
+        theme_text_color: "Custom"
+        text_color: app.theme_cls.primary_color if clients_check.active == True else 'black'
+        font_size: '20sp'
+        bold: True if clients_check.active == True else False
+        pos_hint: {'center_x': .25, 'center_y': .8}
+    Check:
+        id: clients_check
+        active: True
+        pos_hint: {'center_x': .5, 'center_y': .8}
+    MDLabel:
+        text: 'Номенклатура'
+        halign: "left"
+        size_hint_x: .4
+        theme_text_color: "Custom"
+        text_color: app.theme_cls.primary_color if nomenclature_check.active == True else 'black'
+        font_size: '20sp'
+        bold: True if nomenclature_check.active == True else False
+        pos_hint: {'center_x': .25, 'center_y': .7}
+    Check:
+        id: nomenclature_check
+        pos_hint: {'center_x': .5, 'center_y': .7}
+    MDLabel:
+        text: 'Работы'
+        halign: "left"
+        size_hint_x: .4
+        theme_text_color: "Custom"
+        text_color: app.theme_cls.primary_color if work_check.active == True else 'black'
+        font_size: '20sp'
+        bold: True if work_check.active == True else False
+        pos_hint: {'center_x': .25, 'center_y': .6}
+    Check:
+        id: work_check
+        pos_hint: {'center_x': .5, 'center_y': .6}
+
+
+    MDLabel:
+        text: 'Выбери файл'
+        bold: True
+        halign: "center"
+        font_size: '20sp'
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+        size_hint_x: .8
+
     MDBoxLayout:
-        orientation: 'vertical'
+        orientation: 'horizontal'
+        spacing: 10
+        padding: 20
 
-        MDLabel:
-            text: 'CHOOSE FILE'
+        MDTextField:
+            id: input_file
             halign: "center"
-            pos_hint: {"center_x": 0.5, "center_y": 0.7}
+            pos_hint: {"center_x": 0.5, "center_y": 0.4}
             size_hint_x: .8
+            disabled: 'True'
 
-        MDBoxLayout:
-            orientation: 'horizontal'
-            spacing: 10
-            padding: 20
+        MDIconButton:
+            icon: 'file'
+            theme_icon_color: "Custom"
+            icon_color: app.theme_cls.primary_color
+            icon_size: "36sp"
+            pos_hint: {"center_x": .5, "center_y": .4}
+            on_release: root.filechoose()
 
-            MDTextField:
-                id: input_file
-                halign: "center"
-                pos_hint: {"center_x": 0.5, "center_y": 0.5}
-                size_hint_x: .8
-                disabled: 'True'
-
-            MDIconButton:
-                icon: 'file'
-                theme_icon_color: "Custom"
-                icon_color: app.theme_cls.primary_color
-                icon_size: "36sp"
-                pos_hint: {"center_x": .5, "center_y": .5}
-                on_release: root.filechoose()
-
-        MDRaisedButton:
-            text: "GOTO SETTINGS"
-            pos_hint: {"center_x": 0.5, "center_y": 0.3}
-            disabled: True if input_file.text == '' else False
-            on_release:
-                root.check_file()
+    MDRaisedButton:
+        text: "Далее"
+        pos_hint: {"center_x": 0.5, "center_y": 0.3}
+        disabled: True if input_file.text == '' else False
+        on_release:
+            root.check_file()
