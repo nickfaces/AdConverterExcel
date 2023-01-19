@@ -68,6 +68,7 @@
                                 text: ''
                                 on_release: root.drop('clients_type')
                             MDTextField:
+                                id: clients_type_value
                                 text: ""
                                 pos_hint: {"center_x": .5, "center_y": .5}
                                 size_hint_x: .3
@@ -90,6 +91,7 @@
                                 text: ''
                                 on_release: root.drop('full_name')
                             MDTextField:
+                                id: full_name_value
                                 text: ""
                                 pos_hint: {"center_x": .5, "center_y": .5}
                                 size_hint_x: .3
@@ -112,6 +114,7 @@
                                 text: ''
                                 on_release: root.drop('short_name')
                             MDTextField:
+                                id: short_name_value
                                 text: ""
                                 pos_hint: {"center_x": .5, "center_y": .5}
                                 size_hint_x: .3
@@ -132,6 +135,7 @@
                                 text: ''
                                 on_release: root.drop('inn')
                             MDTextField:
+                                id: inn_value
                                 text: ""
                                 pos_hint: {'center_x': .5, 'center_y': .5}
                                 size_hint_x: .3
@@ -152,6 +156,7 @@
                                 text: ''
                                 on_release: root.drop('kpp')
                             MDTextField:
+                                id: kpp_value
                                 text: ""
                                 size_hint_x: .3
                                 pos_hint: {'center_x': .5, 'center_y': .5}
@@ -172,6 +177,7 @@
                                 text: ''
                                 on_release: root.drop('ogrn')
                             MDTextField:
+                                id: ogrn_value
                                 text: ""
                                 size_hint_x: .3
                                 pos_hint: {'center_x': .5, 'center_y': .5}
@@ -191,6 +197,7 @@
                                 text: ''
                                 on_release: root.drop('number_ip')
                             MDTextField:
+                                id: number_ip_value
                                 text: ""
                                 size_hint_x: .3
                                 pos_hint: {'center_x': .5, 'center_y': .5}
@@ -210,6 +217,7 @@
                                 text: ''
                                 on_release: root.drop('date_ip')
                             MDTextField:
+                                id: date_ip_value
                                 text: ""
                                 size_hint_x: .3
                                 pos_hint: {'center_x': .5, 'center_y': .5}
@@ -229,6 +237,7 @@
                                 text: ''
                                 on_release: root.drop('folder')
                             MDTextField:
+                                id: folder_value
                                 text: ""
                                 size_hint_x: .3
                                 pos_hint: {'center_x': .5, 'center_y': .5}
@@ -248,6 +257,7 @@
                                 text: ''
                                 on_release: root.drop('comment')
                             MDTextField:
+                                id: comment_value
                                 text: ""
                                 size_hint_x: .3
                                 pos_hint: {'center_x': .5, 'center_y': .5}
@@ -267,6 +277,7 @@
                                 text: ''
                                 on_release: root.drop('legal_address')
                             MDTextField:
+                                id: legal_address_value
                                 text: ""
                                 size_hint_x: .3
                                 pos_hint: {'center_x': .5, 'center_y': .5}
@@ -286,6 +297,7 @@
                                 text: ''
                                 on_release: root.drop('fact_address')
                             MDTextField:
+                                id: fact_address_value
                                 text: ""
                                 size_hint_x: .3
                                 pos_hint: {'center_x': .5, 'center_y': .5}
@@ -305,6 +317,7 @@
                                 text: ''
                                 on_release: root.drop('post_address')
                             MDTextField:
+                                id: post_address_value
                                 text: ""
                                 size_hint_x: .3
                                 pos_hint: {'center_x': .5, 'center_y': .5}
@@ -819,27 +832,25 @@
                 size_hint_y: .1
                 MDRaisedButton:
                     text: "Импорт"
-                    pos_hint: {"center_x": .2, "center_y": .5}
+                    pos_hint: {"center_x": .5, "center_y": .5}
                     size_hint: .1, .7
+                    disabled:
+                        True if ((clients_type.text == '' and clients_type_value.text == '') or (full_name.text == '' and full_name_value.text == '') or (short_name.text == '' and short_name_value.text == '')) else False
                     on_release:
-                        root.spinner_toggle()
                         root.import_file_thread()
-                        root.spinner_toggle()
 
                 MDLabel:
                     id: progress_label
                     halign: 'center'
                     text_color: app.theme_cls.primary_color
                     text: root.progress
-                    size_hint: .3, .5
-                    pos_hint: {'center_x': .5, 'center_y': .5}
-
-                MDSpinner:
-                    id: progress_spinner
-                    size_hint: None, None
-                    size: dp(46), dp(46)
+                    size_hint: .4, .5
                     pos_hint: {'center_x': .8, 'center_y': .5}
-                    active: False
+
+
+                MDProgressBar:
+                    value: root.progress_value
+                    size_hint: 1, .1
 
 
 

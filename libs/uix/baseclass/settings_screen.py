@@ -8,7 +8,7 @@ from kivymd.uix.dialog import MDDialog
 from kivymd.uix.menu import MDDropdownMenu
 from kivymd.uix.list import OneLineListItem
 import pandas as pd
-from kivy.properties import StringProperty
+from kivy.properties import StringProperty, NumericProperty
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 import time
@@ -20,6 +20,7 @@ class SettingsScreen(Screen):
     #     self.manager.goback()
     dialog = None
     progress = StringProperty('')
+    progress_value = NumericProperty(0)
 
     def drop(self, name):
         current_path = self.manager.get_screen("home").ids.input_file.text
@@ -47,43 +48,136 @@ class SettingsScreen(Screen):
         self.menu.dismiss()
         self.ids[name].text = text_item
 
-    @mainthread
-    def spinner_toggle(self):
-        if self.ids.progress_spinner.active == False:
-            self.ids.progress_spinner.active = True
-        else:
-            self.ids.progress_spinner.active = False
-
-
 
     def set_current_item_label(self, i):
         app = MDApp.get_running_app()
         amount_items = app.amount_items
-        # self.current_item = str(i)
-        self.progress = 'Обрабатывается ' + str(i+1) + ' из ' + str(amount_items)
-
+        progress_proc = ((i + 1) / amount_items) * 100
+        self.progress = 'Обрабатывается ' + str(i+1) + ' из ' + str(amount_items) + ' (' + str(round(progress_proc)) + \
+                        '%)'
+        self.progress_value = progress_proc
     def import_file(self):
         start = time.time()
         current_path = self.manager.get_screen("home").ids.input_file.text
         input_file = pd.read_excel(current_path)
         kol = len(input_file.index)
-        start_dataframe = pd.read_excel(r'C:\Users\Владимир\Downloads\AdConverterExcel-main\AdConverterExcel-main\empty.xlsx')
+        start_dataframe = pd.read_excel(r'empty.xlsx')
         df3 = pd.DataFrame()
         for i, row in input_file.iterrows():
             Clock.schedule_interval(lambda dt: self.set_current_item_label(i), 1)
-            clients_type = input_file.iloc[i][self.ids.clients_type.text] if self.ids.clients_type.text != '' else ''
-            full_name = input_file.iloc[i][self.ids.full_name.text] if self.ids.full_name.text != '' else ''
-            short_name = input_file.iloc[i][self.ids.short_name.text] if self.ids.short_name.text != '' else ''
-            inn = input_file.iloc[i][self.ids.inn.text] if self.ids.inn.text != '' else ''
-            kpp = input_file.iloc[i][self.ids.kpp.text] if self.ids.kpp.text != '' else ''
-            ogrn = input_file.iloc[i][self.ids.ogrn.text] if self.ids.ogrn.text != '' else ''
-            number_ip = input_file.iloc[i][self.ids.number_ip.text] if self.ids.number_ip.text != '' else ''
-            date_ip = input_file.iloc[i][self.ids.date_ip.text] if self.ids.date_ip.text != '' else ''
-            folder = input_file.iloc[i][self.ids.folder.text] if self.ids.folder.text != '' else ''
-            comment = input_file.iloc[i][self.ids.comment.text] if self.ids.comment.text != '' else ''
-            legal_address = input_file.iloc[i][self.ids.legal_address.text] if self.ids.legal_address.text != '' else ''
-            fact_address = input_file.iloc[i][self.ids.fact_address.text] if self.ids.fact_address.text != '' else ''
-            post_address = input_file.iloc[i][self.ids.post_address.text] if self.ids.post_address.text != '' else ''
+
+            if self.ids.clients_type_value.text != '':
+                clients_type = self.ids.clients_type_value.text
+            else:
+                if self.ids.clients_type.text != '':
+                    clients_type = input_file.iloc[i][self.ids.clients_type.text]
+                else:
+                    clients_type = ''
+
+            if self.ids.full_name_value.text != '':
+                full_name = self.ids.full_name_value.text
+            else:
+                if self.ids.full_name.text != '':
+                    full_name = input_file.iloc[i][self.ids.full_name.text]
+                else:
+                    full_name = ''
+
+            if self.ids.short_name_value.text != '':
+                short_name = self.ids.short_name_value.text
+            else:
+                if self.ids.short_name.text != '':
+                    short_name = input_file.iloc[i][self.ids.short_name.text]
+                else:
+                    short_name = ''
+
+            if self.ids.inn_value.text != '':
+                inn = self.ids.inn_value.text
+            else:
+                if self.ids.inn.text != '':
+                    inn = input_file.iloc[i][self.ids.inn.text]
+                else:
+                    inn = ''
+
+            if self.ids.kpp_value.text != '':
+                kpp = self.ids.kpp_value.text
+            else:
+                if self.ids.kpp.text != '':
+                    kpp = input_file.iloc[i][self.ids.kpp.text]
+                else:
+                    kpp = ''
+
+            if self.ids.ogrn_value.text != '':
+                ogrn = self.ids.ogrn_value.text
+            else:
+                if self.ids.ogrn.text != '':
+                    ogrn = input_file.iloc[i][self.ids.ogrn.text]
+                else:
+                    ogrn = ''
+
+            if self.ids.number_ip_value.text != '':
+                number_ip = self.ids.number_ip_value.text
+            else:
+                if self.ids.number_ip.text != '':
+                    number_ip = input_file.iloc[i][self.ids.number_ip.text]
+                else:
+                    number_ip = ''
+
+            if self.ids.date_ip_value.text != '':
+                date_ip = self.ids.date_ip_value.text
+            else:
+                if self.ids.number_ip.text != '':
+                    date_ip = input_file.iloc[i][self.ids.date_ip.text]
+                else:
+                    date_ip = ''
+
+            if self.ids.folder_value.text != '':
+                folder = self.ids.folder_value.text
+            else:
+                if self.ids.number_ip.text != '':
+                    folder = input_file.iloc[i][self.ids.folder.text]
+                else:
+                    folder = ''
+
+            if self.ids.folder_value.text != '':
+                folder = self.ids.folder_value.text
+            else:
+                if self.ids.number_ip.text != '':
+                    folder = input_file.iloc[i][self.ids.folder.text]
+                else:
+                    folder = ''
+
+            if self.ids.comment_value.text != '':
+                comment = self.ids.comment_value.text
+            else:
+                if self.ids.comment.text != '':
+                    comment = input_file.iloc[i][self.ids.comment.text]
+                else:
+                    comment = ''
+
+            if self.ids.legal_address_value.text != '':
+                legal_address = self.ids.legal_address_value.text
+            else:
+                if self.ids.legal_address.text != '':
+                    legal_address = input_file.iloc[i][self.ids.legal_address.text]
+                else:
+                    legal_address = ''
+
+            if self.ids.fact_address_value.text != '':
+                fact_address = self.ids.fact_address_value.text
+            else:
+                if self.ids.fact_address.text != '':
+                    fact_address = input_file.iloc[i][self.ids.fact_address.text]
+                else:
+                    fact_address = ''
+
+            if self.ids.post_address_value.text != '':
+                post_address = self.ids.post_address_value.text
+            else:
+                if self.ids.post_address.text != '':
+                    post_address = input_file.iloc[i][self.ids.post_address.text]
+                else:
+                    post_address = ''
+
 
             if i != 0:
                 start_dataframe = df3
@@ -98,16 +192,15 @@ class SettingsScreen(Screen):
 
             #df3 = start_dataframe.append(df2)
             df3 = pd.concat([start_dataframe, df2])
-        writer = pd.ExcelWriter(r'C:\Users\Владимир\Downloads\AdConverterExcel-main\AdConverterExcel-main\output.xlsx')
+        writer = pd.ExcelWriter(r'output.xlsx')
         df3.to_excel(writer, index=False)
         end = time.time() - start
         print('END: ', end)
         writer.save()
         self.show_alert_dialog()
-        self.spinner_toggle()
+
 
     def import_file_thread(self):
-        self.spinner_toggle()
         threading.Thread(target=(self.import_file)).start()
 
     @mainthread
