@@ -4,9 +4,9 @@
         "object": "HomeScreen()",
         "kv": "libs/uix/kv/home_screen.kv"
     },
-    "settings": {
-        "import": "from libs.uix.baseclass.settings_screen import SettingsScreen",
-        "object": "SettingsScreen()",
-        "kv": "libs/uix/kv/settings_screen.kv"
+    "clients": {
+        "import": "from libs.uix.baseclass.clients_screen import ClientsScreen",
+        "object": "ClientsScreen()",
+        "kv": "libs/uix/kv/clients_screen.kv"
     }
 }

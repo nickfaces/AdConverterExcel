@@ -9,7 +9,6 @@ class MainApp(MDApp):
         super().__init__(**kwargs)
 
         self.title = "AdConverterExcel"
-
         Window.keyboard_anim_args = {"d": 0.2, "t": "linear"}
         Window.softinput_mode = "below_target"
 

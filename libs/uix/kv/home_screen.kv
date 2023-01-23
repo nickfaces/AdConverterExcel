@@ -4,7 +4,7 @@
     size: dp(48), dp(48)
 
 <HomeScreen>
-    MDRelativeLayout:
+    MDScreen:
         MDLabel:
             text: 'Что импортировать?'
             bold: True
@@ -79,9 +79,38 @@
                 pos_hint: {"center_x": .5, "center_y": .4}
                 on_release: root.filechoose()
 
+        MDLabel:
+            text: 'Папка для сохранения'
+            bold: True
+            halign: "center"
+            font_size: '20sp'
+            pos_hint: {"center_x": 0.5, "center_y": 0.3}
+            size_hint_x: .8
+
+        MDBoxLayout:
+            orientation: 'horizontal'
+            spacing: 10
+            padding: 20
+
+            MDTextField:
+                id: output_dir
+                halign: "center"
+                pos_hint: {"center_x": 0.5, "center_y": 0.2}
+                size_hint_x: .8
+                disabled: 'True'
+
+            MDIconButton:
+                icon: 'file'
+                theme_icon_color: "Custom"
+                icon_color: app.theme_cls.primary_color
+                icon_size: "36sp"
+                pos_hint: {"center_x": .5, "center_y": .2}
+                on_release: root.directory_choose()
+
         MDRaisedButton:
             text: "Далее"
-            pos_hint: {"center_x": 0.5, "center_y": 0.3}
+            md_bg_color: app.theme_cls.primary_color
+            pos_hint: {"center_x": 0.5, "center_y": 0.1}
             disabled: True if input_file.text == '' else False
             on_release:
                 root.check_file()
