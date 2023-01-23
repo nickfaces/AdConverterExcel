@@ -2,6 +2,10 @@
     IconLeftWidget:
         icon: root.icon
 
+<CarButton@MDIconButton+MDTooltip>
+<ContactButton@MDIconButton+MDTooltip>
+<BankButton@MDIconButton+MDTooltip>
+
 <MyWidget>
     size_hint_y: None
     height: 50
@@ -76,6 +80,7 @@
                         size_hint_y: None
                         height: self.minimum_height
             MDFloatLayout:
+                id: float
                 size_hint_y: .1
                 MDRaisedButton:
                     text: "Импорт"
@@ -84,36 +89,33 @@
                     on_release:
                         root.import_file_thread()
 
-                MDIconButton:
+                CarButton:
                     icon: 'car-2-plus'
+                    tooltip_text: 'Дополнительный автомобиль'
                     icon_size: dp(48)
                     pos_hint: {"center_x": .05, "center_y": .5}
                     size_hint: .1, 1
                     on_release:
                         root.add_auto()
 
-                MDIconButton:
+                ContactButton:
                     icon: 'account-plus'
+                    tooltip_text: 'Дополнительный контакт'
                     icon_size: dp(48)
                     pos_hint: {"center_x": .15, "center_y": .5}
                     size_hint: .1, 1
                     on_release:
                         root.add_contact()
 
-                MDIconButton:
+                BankButton:
                     icon: 'bank-plus'
+                    tooltip_text: 'Дополнительный счет'
                     icon_size: dp(48)
                     pos_hint: {"center_x": .25, "center_y": .5}
                     size_hint: .1, 1
                     on_release:
                         root.add_bank()
 
-                MDRaisedButton:
-                    text: "Далее"
-                    pos_hint: {'center_x': .9, 'center_y': .5}
-                    size_hint: .1, .7
-                    on_release:
-                        root.import_file_thread()
 
 
 

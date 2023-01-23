@@ -6,7 +6,7 @@ from kivymd.uix.screen import MDScreen
 from kivy.uix.screenmanager import Screen, ScreenManager
 from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.card import MDCard
-from kivymd.uix.button import MDFlatButton
+from kivymd.uix.button import MDFlatButton, MDRaisedButton
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.menu import MDDropdownMenu
 import pandas as pd
@@ -175,9 +175,9 @@ class ClientsScreen(MDScreen):
         self.progress_value = progress_proc
     def import_file(self):
         start = time.time()
-        current_path = self.manager.get_screen("home").ids.input_file.text
-        input_file = pd.read_excel(current_path)
-        kol = len(input_file.index)
+        current_path = self.manager.get_screen("home").ids.clients_file.text
+        clients_file = pd.read_excel(current_path)
+        kol = len(clients_file.index)
         df3 = pd.DataFrame()
 
         pol = self.ids.my_grid.children
@@ -190,7 +190,7 @@ class ClientsScreen(MDScreen):
         for pl in plo_out:
             try:
                 if pl['dropdown_item'] != '' and pl['textfield'] == '':
-                    df3[pl['label']] = input_file[pl['dropdown_item']]
+                    df3[pl['label']] = clients_file[pl['dropdown_item']]
             except Exception as e:
                 print(e)
 
@@ -208,7 +208,7 @@ class ClientsScreen(MDScreen):
 
 
 
-        for i, row in input_file.iterrows():
+        for i, row in clients_file.iterrows():
             Clock.schedule_interval(lambda dt: self.set_current_item_label(i), 1)
 
 
@@ -218,6 +218,7 @@ class ClientsScreen(MDScreen):
         writer.save()
         print('END: ', end)
         self.show_alert_dialog()
+        self.add_next_button()
 
 
     def import_file_thread(self):
@@ -255,6 +256,16 @@ class ClientsScreen(MDScreen):
             call(['xdg-open', 'output.xlsx'])
             self.dialog_close()
 
+    @mainthread
+    def add_next_button(self):
+        btn = MDRaisedButton(
+            text="Далее",
+            size_hint=(.1, .7),
+            pos_hint={'center_x': .9, 'center_y': .5},
+        )
+        layout = self.ids.float
+        layout.add_widget(btn)
+
 class MyWidget(MDCard):
     label_text = StringProperty()
     label_text_color = ColorProperty()
@@ -263,8 +274,8 @@ class MyWidget(MDCard):
 
     def drop(self, name):
         app = MDApp.get_running_app()
-        input_file = app.input_file
-        out = input_file.columns.values.tolist()
+        clients_file = app.clients_file
+        out = clients_file.columns.values.tolist()
         items = [
             {
                 "viewclass": "OneLineListItem",

@@ -1,3 +1,6 @@
+import os
+
+from kivy.properties import BooleanProperty, ObjectProperty
 from kivy.uix.screenmanager import Screen
 import pandas as pd
 from kivymd.uix.screen import MDScreen
@@ -5,18 +8,23 @@ from plyer import filechooser
 from kivymd.app import MDApp
 
 class HomeScreen(MDScreen):
-    pass
+
+    check_all_flag = True
+    def on_enter(self, *args):
+
+        path = os.getcwd()
+        self.ids.output_dir.text = path
 
     def check_file(self):
-        # input_file = pd.read_excel('Клиенты. Пример импорта.xlsx')
-        current_path = self.ids.input_file.text
+        # clients_file = pd.read_excel('Клиенты. Пример импорта.xlsx')
+        current_path = self.ids.clients_file.text
         try:
-            input_file = pd.read_excel(current_path)
+            clients_file = pd.read_excel(current_path)
 
-            out = input_file.columns.values.tolist()
+            out = clients_file.columns.values.tolist()
             app = MDApp.get_running_app()
-            app.amount_items = len(input_file.index)
-            app.input_file = input_file
+            app.amount_items = len(clients_file.index)
+            app.clients_file = clients_file
             self.goto_settings_screen()
         except Exception as e:
             print(e)
@@ -26,10 +34,24 @@ class HomeScreen(MDScreen):
     def goto_settings_screen(self):
         self.manager.set_current("clients")
 
-    def filechoose(self):
+    def clients_filechoose(self):
         try:
             path = filechooser.open_file(filters = ["*.xlsx", "*.xls"])[0]
-            self.ids.input_file.text = path
+            self.ids.clients_file.text = path
+        except Exception as e:
+            print(e)
+    
+    def nomenclature_filechoose(self):
+        try:
+            path = filechooser.open_file(filters = ["*.xlsx", "*.xls"])[0]
+            self.ids.nomenclature_file.text = path
+        except Exception as e:
+            print(e)
+    
+    def work_filechoose(self):
+        try:
+            path = filechooser.open_file(filters = ["*.xlsx", "*.xls"])[0]
+            self.ids.work_file.text = path
         except Exception as e:
             print(e)
     
@@ -39,3 +61,4 @@ class HomeScreen(MDScreen):
             self.ids.output_dir.text = path
         except Exception as e:
             print(e)
+
