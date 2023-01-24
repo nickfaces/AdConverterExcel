@@ -8,5 +8,10 @@
         "import": "from libs.uix.baseclass.clients_screen import ClientsScreen",
         "object": "ClientsScreen()",
         "kv": "libs/uix/kv/clients_screen.kv"
+    },
+    "account": {
+        "import": "from libs.uix.baseclass.account_screen import AccountScreen",
+        "object": "AccountScreen()",
+        "kv": "libs/uix/kv/account_screen.kv"
     }
 }

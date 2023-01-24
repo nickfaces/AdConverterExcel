@@ -3,17 +3,12 @@ from kivymd.app import MDApp
 from kivy.clock import mainthread, Clock
 from kivy.metrics import dp
 from kivymd.uix.screen import MDScreen
-from kivy.uix.screenmanager import Screen, ScreenManager
-from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.card import MDCard
 from kivymd.uix.button import MDFlatButton, MDRaisedButton
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.menu import MDDropdownMenu
 import pandas as pd
-from kivy.properties import StringProperty, NumericProperty, ColorProperty
-import warnings
-
-warnings.simplefilter(action='ignore', category=FutureWarning)
+from kivy.properties import StringProperty, NumericProperty, ColorProperty, BooleanProperty
 import time
 
 class ClientsScreen(MDScreen):
@@ -21,6 +16,9 @@ class ClientsScreen(MDScreen):
     dialog = None
     progress = StringProperty('')
     progress_value = NumericProperty(0)
+    app = MDApp.get_running_app()
+    app.import_button = BooleanProperty(True)
+
 
     def __init__(self, **kwargs):
         super(ClientsScreen, self).__init__(**kwargs)
@@ -165,6 +163,7 @@ class ClientsScreen(MDScreen):
     def menu_callback(self, text_item, name):
         self.menu.dismiss()
         self.ids[name].text = text_item
+        self.check_minimal_value()
 
     def set_current_item_label(self, i):
         app = MDApp.get_running_app()
@@ -173,6 +172,7 @@ class ClientsScreen(MDScreen):
         self.progress = 'Обрабатывается ' + str(i+1) + ' из ' + str(amount_items) + ' (' + str(round(progress_proc)) + \
                         '%)'
         self.progress_value = progress_proc
+
     def import_file(self):
         start = time.time()
         current_path = self.manager.get_screen("home").ids.clients_file.text
@@ -266,6 +266,7 @@ class ClientsScreen(MDScreen):
         layout = self.ids.float
         layout.add_widget(btn)
 
+
 class MyWidget(MDCard):
     label_text = StringProperty()
     label_text_color = ColorProperty()
@@ -297,19 +298,20 @@ class MyWidget(MDCard):
     def menu_callback(self, text_item, name):
         self.menu.dismiss()
         self.ids.dropdown_item_id.text = text_item
+        self.check_minimal_value()
 
-class ItemList():
+    @mainthread
+    def check_minimal_value(self):
+        app = MDApp.get_running_app()
+        ItemListD = app.ItemListD
+        ContactListD = app.ContactListD
+        AutoListD = app.AutoListD
+        BankListD = app.BankListD
+        for i in range(len(ItemListD + ContactListD + AutoListD + BankListD)):
+            item_list = ItemListD + ContactListD + AutoListD + BankListD
+            item = item_list[i]
+            if (item['label_text'] == 'Тип клиента' and (item['dropdown_item_id'] == '' or item['textfield_id'] == '')):
+                app.import_button = False
+            else:
+                True
 
-    clients_type = {'label_text': 'Тип клиента', 'label_text_color': 'red', 'dropdown_item_id': 'clients_type', 'textfield_id': 'clients_type_value'}
-    full_name = {'label_text': 'Полное наименование', 'label_text_color': 2, 'dropdown_item_id': 3, 'textfield_id': 4}
-    short_name = {'label_text': 'Краткое наименование', 'label_text_color': 2, 'dropdown_item_id': 3, 'textfield_id': 4}
-    inn = {'label_text': 'ИНН', 'label_text_color': 2, 'dropdown_item_id': 3, 'textfield_id': 4}
-    kpp = {'label_text': 'КПП', 'label_text_color': 2, 'dropdown_item_id': 3, 'textfield_id': 4}
-    ogrn = {'label_text': 'ОГРН', 'label_text_color': 2, 'dropdown_item_id': 3, 'textfield_id': 4}
-    number_ip = {'label_text': 'Номер свидетельства ИП', 'label_text_color': 2, 'dropdown_item_id': 3, 'textfield_id': 4}
-    date_ip = {'label_text': 'Дата выдачи ИП', 'label_text_color': 2, 'dropdown_item_id': 3, 'textfield_id': 4}
-    folder = {'label_text': 'Папка', 'label_text_color': 2, 'dropdown_item_id': 3, 'textfield_id': 4}
-    comment = {'label_text': 'Примечание', 'label_text_color': 2, 'dropdown_item_id': 3, 'textfield_id': 4}
-    legal_address = {'label_text': 'Юридический адрес', 'label_text_color': 2, 'dropdown_item_id': 3, 'textfield_id': 4}
-    fact_address = {'label_text': 'Фактический адрес', 'label_text_color': 2, 'dropdown_item_id': 3, 'textfield_id': 4}
-    post_address = {'label_text': 'Почтовый адрес', 'label_text_color': 2, 'dropdown_item_id': 3, 'textfield_id': 4}

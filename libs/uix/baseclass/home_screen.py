@@ -1,7 +1,4 @@
 import os
-
-from kivy.properties import BooleanProperty, ObjectProperty
-from kivy.uix.screenmanager import Screen
 import pandas as pd
 from kivymd.uix.screen import MDScreen
 from plyer import filechooser
@@ -16,7 +13,6 @@ class HomeScreen(MDScreen):
         self.ids.output_dir.text = path
 
     def check_file(self):
-        # clients_file = pd.read_excel('Клиенты. Пример импорта.xlsx')
         current_path = self.ids.clients_file.text
         try:
             clients_file = pd.read_excel(current_path)
@@ -30,7 +26,6 @@ class HomeScreen(MDScreen):
             print(e)
 
 
-    # changing screens also can be done in python
     def goto_settings_screen(self):
         self.manager.set_current("clients")
 

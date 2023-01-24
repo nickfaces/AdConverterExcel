@@ -3,7 +3,7 @@ import json
 from kivy.core.window import Window
 from kivy.lang import Builder
 from kivy.properties import ListProperty
-from kivy.uix.screenmanager import ScreenManager
+from kivy.uix.screenmanager import ScreenManager, FadeTransition
 
 from libs.applibs import utils
 

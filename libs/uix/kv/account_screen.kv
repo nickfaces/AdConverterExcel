@@ -1,0 +1,72 @@
+<AccountScreen>
+    RelativeLayout:
+        id: screen_layout
+        Image:
+            #size: self.size
+            source: "logo.webp"
+            allow_stretch: True
+            keep_ratio: True
+            pos_hint: {"center_x": .5, "center_y": .77}
+            size_hint: .7, .1
+
+        MDTextField:
+            id: login
+            pos_hint: {"center_x": .5, "center_y": .60}
+            size_hint: .75, .1
+            mode: "fill"
+            icon_right: "email"
+            hint_text: "E-mail"
+            text: ""
+            normal_color: 1, 1, 1, 1
+            fill_color: 1, 1, 1, 1
+            fill_color_normal: 1,1,1,1
+            line_color: app.theme_cls.primary_color
+
+
+        MDTextField:
+            id: password
+            pos_hint: {"center_x": .5, "center_y": .50}
+            size_hint: .75, .1
+            mode: "fill"
+            icon_right: "lock"
+            hint_text: "Пароль"
+            password: True
+            normal_color: 1, 1, 1, 1
+            color_active: 1, 1, 1, 1
+            fill_color_normal: 1,1,1,1
+            line_color: app.theme_cls.primary_color
+
+
+        MDFillRoundFlatButton:
+            text: "Войти"
+            pos_hint: {"center_x": .5, "center_y": .40}
+            disabled: True if (login.text == '' or password.text == '') else False
+            size_hint: .75, .060
+            theme_text_color: "Custom"
+            line_color: app.theme_cls.primary_color
+            md_bg_color: app.theme_cls.primary_color
+            on_press:
+                root.spinner_toggle()
+                root.auth_thread()
+                root.spinner_toggle()
+
+        MDRaisedButton:
+            text: "Вернуться"
+            pos_hint: {"center_x": .9, "center_y": .1}
+            on_release:
+                root.manager.set_current('home')
+
+        MDSpinner:
+            id: auth_spin
+            size_hint: None, None
+            size: dp(46), dp(46)
+            pos_hint: {'center_x': .5, 'center_y': .15}
+            active: False
+
+        MDIcon:
+            id: status
+            opacity: 0
+            icon_size: "96sp"
+            theme_text_color: 'Custom'
+            pos_hint: {'center_x': .5, 'center_y': .15}
+
