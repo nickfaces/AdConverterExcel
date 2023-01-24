@@ -17,7 +17,7 @@ class ClientsScreen(MDScreen):
     progress = StringProperty('')
     progress_value = NumericProperty(0)
     app = MDApp.get_running_app()
-    app.import_button = BooleanProperty(True)
+    app.import_button = BooleanProperty(False)
 
 
     def __init__(self, **kwargs):
@@ -86,12 +86,13 @@ class ClientsScreen(MDScreen):
         for i in range(len(ItemListD + ContactListD + AutoListD + BankListD)):
             item_list = ItemListD + ContactListD + AutoListD + BankListD
             item = item_list[i]
-            my_vid = MyWidget()
+            my_vid = ClientItem()
             my_vid.label_text = item['label_text']
             my_vid.label_text_color = item['label_text_color']
             my_vid.dropdown_item_id = item['dropdown_item_id']
             my_vid.textfield_id = item['textfield_id']
             my_grid.add_widget(my_vid)
+
 
     def add_auto(self):
         app = MDApp.get_running_app()
@@ -108,7 +109,7 @@ class ClientsScreen(MDScreen):
         for i in range(len(AutoListD)):
             item_list = AutoListD
             item = item_list[i]
-            my_vid = MyWidget()
+            my_vid = ClientItem()
             my_vid.label_text = item['label_text']
             my_vid.label_text_color = item['label_text_color']
             my_vid.dropdown_item_id = item['dropdown_item_id']
@@ -132,7 +133,7 @@ class ClientsScreen(MDScreen):
         for i in range(len(ContactListD)):
             item_list = ContactListD
             item = item_list[i]
-            my_vid = MyWidget()
+            my_vid = ClientItem()
             my_vid.label_text = item['label_text']
             my_vid.label_text_color = item['label_text_color']
             my_vid.dropdown_item_id = item['dropdown_item_id']
@@ -150,7 +151,7 @@ class ClientsScreen(MDScreen):
         for i in range(len(BankListD)):
             item_list = BankListD
             item = item_list[i]
-            my_vid = MyWidget()
+            my_vid = ClientItem()
             my_vid.label_text = item['label_text']
             my_vid.label_text_color = item['label_text_color']
             my_vid.dropdown_item_id = item['dropdown_item_id']
@@ -172,6 +173,28 @@ class ClientsScreen(MDScreen):
         self.progress = 'Обрабатывается ' + str(i+1) + ' из ' + str(amount_items) + ' (' + str(round(progress_proc)) + \
                         '%)'
         self.progress_value = progress_proc
+
+    def check_choices(self):
+        flag = 0
+        for child in self.ids.my_grid.children:
+            if (child.ids.label_id.text == 'Тип клиента' and (child.ids.dropdown_item_id.text == '' and child.ids.textfield_id.text == '')) or \
+                    (child.ids.label_id.text == 'Полное наименование' and (child.ids.dropdown_item_id.text == '' and child.ids.textfield_id.text == '')) or \
+                    (child.ids.label_id.text == 'Краткое наименование' and (child.ids.dropdown_item_id.text == '' and child.ids.textfield_id.text == '')):
+                flag = 1
+            else:
+                print('qqqqqqqqqqqq')
+        if flag == 1:
+            self.show_nocheck_dialog()
+        else:
+            self.import_file_thread()
+
+    @mainthread
+    def show_nocheck_dialog(self):
+        if not self.dialog:
+            self.dialog = MDDialog(
+                text="Укажите обязательные данные (выделены красным)",
+            )
+        self.dialog.open()
 
     def import_file(self):
         start = time.time()
@@ -207,12 +230,12 @@ class ClientsScreen(MDScreen):
         print(df3)
 
 
+        #
+        # for i, row in clients_file.iterrows():
+        #     Clock.schedule_interval(lambda dt: self.set_current_item_label(i), 1)
 
-        for i, row in clients_file.iterrows():
-            Clock.schedule_interval(lambda dt: self.set_current_item_label(i), 1)
 
-
-        writer = pd.ExcelWriter(r'output.xlsx')
+        writer = pd.ExcelWriter(r'clients.xlsx')
         df3.to_excel(writer, index=False)
         end = time.time() - start
         writer.save()
@@ -226,20 +249,19 @@ class ClientsScreen(MDScreen):
 
     @mainthread
     def show_alert_dialog(self):
-        if not self.dialog:
-            self.dialog = MDDialog(
-                text="Открыть файл?",
-                buttons=[
-                    MDFlatButton(
-                        text="Открыть",
-                        on_release=self.open_file
-                    ),
-                    MDFlatButton(
-                        text="Отмена",
-                        on_release=self.dialog_close
-                    ),
-                ],
-            )
+        self.dialog = MDDialog(
+            text="Открыть файл?",
+            buttons=[
+                MDFlatButton(
+                    text="Открыть",
+                    on_release=self.open_file
+                ),
+                MDFlatButton(
+                    text="Отмена",
+                    on_release=self.dialog_close
+                ),
+            ],
+        )
         self.dialog.open()
 
     @mainthread
@@ -251,9 +273,9 @@ class ClientsScreen(MDScreen):
         from subprocess import call
         if platform.system() == 'Windows':
             self.dialog_close()
-            call('output.xlsx', shell=True)
+            call('clients.xlsx', shell=True)
         if platform.system() == 'Linux':
-            call(['xdg-open', 'output.xlsx'])
+            call(['xdg-open', 'clients.xlsx'])
             self.dialog_close()
 
     @mainthread
@@ -263,11 +285,26 @@ class ClientsScreen(MDScreen):
             size_hint=(.1, .7),
             pos_hint={'center_x': .9, 'center_y': .5},
         )
+
+        btn.bind(on_release=self.goto_import_screen)
         layout = self.ids.float
         layout.add_widget(btn)
 
+    def goto_import_screen(self, arg):
+        app = MDApp.get_running_app()
+        if app.current_screen != 0:
+            app.current_screen = app.current_screen + 1
+        screen_list = app.screen_list
+        if (app.current_screen) <= len(screen_list):
+            if app.current_screen == 0:
+                app.current_screen = app.current_screen + 1
+                self.manager.set_current(screen_list[app.current_screen])
+            else:
+                self.manager.set_current(screen_list[app.current_screen] + 1)
+        else:
+            print('sddffsfsdf')
 
-class MyWidget(MDCard):
+class ClientItem(MDCard):
     label_text = StringProperty()
     label_text_color = ColorProperty()
     dropdown_item_id = StringProperty()
@@ -298,20 +335,5 @@ class MyWidget(MDCard):
     def menu_callback(self, text_item, name):
         self.menu.dismiss()
         self.ids.dropdown_item_id.text = text_item
-        self.check_minimal_value()
 
-    @mainthread
-    def check_minimal_value(self):
-        app = MDApp.get_running_app()
-        ItemListD = app.ItemListD
-        ContactListD = app.ContactListD
-        AutoListD = app.AutoListD
-        BankListD = app.BankListD
-        for i in range(len(ItemListD + ContactListD + AutoListD + BankListD)):
-            item_list = ItemListD + ContactListD + AutoListD + BankListD
-            item = item_list[i]
-            if (item['label_text'] == 'Тип клиента' and (item['dropdown_item_id'] == '' or item['textfield_id'] == '')):
-                app.import_button = False
-            else:
-                True
 

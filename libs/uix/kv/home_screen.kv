@@ -154,6 +154,7 @@
             pos_hint: {"center_x": 0.9, "center_y": 0.1}
             disabled: True if ((clients_check.active == False or (clients_check.active == True and clients_file.text == '' )) and (nomenclature_check.active == False or (nomenclature_check.active == True and nomenclature_file.text == '' )) and (work_check.active == False or (work_check.active == True and work_file.text == '' ))) else False
             on_release:
+                root.check_choices_to_import()
                 root.check_file()
 
         MDIconButton:

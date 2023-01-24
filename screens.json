@@ -1,4 +1,9 @@
 {
+    "account": {
+        "import": "from libs.uix.baseclass.account_screen import AccountScreen",
+        "object": "AccountScreen()",
+        "kv": "libs/uix/kv/account_screen.kv"
+    },
     "home": {
         "import": "from libs.uix.baseclass.home_screen import HomeScreen",
         "object": "HomeScreen()",
@@ -9,9 +14,15 @@
         "object": "ClientsScreen()",
         "kv": "libs/uix/kv/clients_screen.kv"
     },
-    "account": {
-        "import": "from libs.uix.baseclass.account_screen import AccountScreen",
-        "object": "AccountScreen()",
-        "kv": "libs/uix/kv/account_screen.kv"
+    "nomenclature": {
+        "import": "from libs.uix.baseclass.nomenclature_screen import NomenclatureScreen",
+        "object": "NomenclatureScreen()",
+        "kv": "libs/uix/kv/nomenclature_screen.kv"
+    },
+    "work": {
+        "import": "from libs.uix.baseclass.work_screen import WorkScreen",
+        "object": "WorkScreen()",
+        "kv": "libs/uix/kv/work_screen.kv"
     }
+
 }
