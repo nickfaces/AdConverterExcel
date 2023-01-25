@@ -43,6 +43,10 @@ class AccountScreen(Screen):
                 i = 2
         except:
             i = 2
+        if i == 0:
+            url = 'https://online.autodealer.ru/api/tenantUsers/current'
+            current = r.get(url)
+            print(current.status_code)
         print(i)
         self.spinner_toggle()
         self.success_icon(i)

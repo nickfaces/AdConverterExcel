@@ -23,6 +23,11 @@
         "import": "from libs.uix.baseclass.work_screen import WorkScreen",
         "object": "WorkScreen()",
         "kv": "libs/uix/kv/work_screen.kv"
+    },
+    "online_import": {
+        "import": "from libs.uix.baseclass.online_import_screen import OnlineImportScreen",
+        "object": "OnlineImportScreen()",
+        "kv": "libs/uix/kv/online_import_screen.kv"
     }
 
 }

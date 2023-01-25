@@ -292,17 +292,12 @@ class ClientsScreen(MDScreen):
 
     def goto_import_screen(self, arg):
         app = MDApp.get_running_app()
-        if app.current_screen != 0:
-            app.current_screen = app.current_screen + 1
         screen_list = app.screen_list
-        if (app.current_screen) <= len(screen_list):
-            if app.current_screen == 0:
-                app.current_screen = app.current_screen + 1
-                self.manager.set_current(screen_list[app.current_screen])
-            else:
-                self.manager.set_current(screen_list[app.current_screen] + 1)
+        app.current_screen = app.current_screen + 1
+        if ((app.current_screen) < len(screen_list)):
+            self.manager.set_current(screen_list[app.current_screen])
         else:
-            print('sddffsfsdf')
+            self.manager.set_current('online_import')
 
 class ClientItem(MDCard):
     label_text = StringProperty()

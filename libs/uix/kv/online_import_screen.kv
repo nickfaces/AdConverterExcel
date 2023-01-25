@@ -1,0 +1,97 @@
+<OnlineImportScreen>
+    RelativeLayout:
+        id: screen_layout
+        Image:
+            #size: self.size
+            source: "logo.webp"
+            allow_stretch: True
+            keep_ratio: True
+            pos_hint: {"center_x": .5, "center_y": .9}
+            size_hint: .7, .1
+        MDLabel:
+            text: 'Что загрузить в аккаунт?'
+            bold: True
+            halign: "center"
+            font_size: '20sp'
+            size_hint_x: .8
+            pos_hint: {'center_x': .5, 'center_y': .8}
+        MDLabel:
+            text: 'Клиенты'
+            halign: "left"
+            size_hint_x: .4
+            theme_text_color: "Custom"
+            text_color: app.theme_cls.primary_color if clients_check.active == True else 'black'
+            font_size: '20sp'
+            bold: True if clients_check.active == True else False
+            pos_hint: {'center_x': .25, 'center_y': .7}
+        MDCheckbox:
+            id: clients_check
+            size_hint: None, None
+            size: dp(48), dp(48)
+            active: True
+            pos_hint: {'center_x': .3, 'center_y': .7}
+        MDIcon:
+            icon: "cancel"
+#            badge_icon: "numeric-10"
+            icon_size: "48sp"
+            theme_text_color: "Custom"
+            text_color: 'red'
+            pos_hint: {"center_x": .95, "center_y": .7}
+
+
+        MDLabel:
+            text: 'Номенклатура'
+            halign: "left"
+            size_hint_x: .4
+            theme_text_color: "Custom"
+            text_color: app.theme_cls.primary_color if nomenclature_check.active == True else 'black'
+            font_size: '20sp'
+            bold: True if nomenclature_check.active == True else False
+            pos_hint: {'center_x': .25, 'center_y': .6}
+        MDCheckbox:
+            id: nomenclature_check
+            size_hint: None, None
+            size: dp(48), dp(48)
+            pos_hint: {'center_x': .3, 'center_y': .6}
+        MDIcon:
+            icon: "cancel"
+#            badge_icon: "numeric-10"
+            icon_size: "48sp"
+            theme_text_color: "Custom"
+            text_color: 'red'
+            pos_hint: {"center_x": .95, "center_y": .6}
+
+
+        MDLabel:
+            text: 'Работы'
+            halign: "left"
+            size_hint_x: .4
+            theme_text_color: "Custom"
+            text_color: app.theme_cls.primary_color if work_check.active == True else 'black'
+            font_size: '20sp'
+            bold: True if work_check.active == True else False
+            pos_hint: {'center_x': .25, 'center_y': .5}
+        MDCheckbox:
+            id: work_check
+            size_hint: None, None
+            size: dp(48), dp(48)
+            pos_hint: {'center_x': .3, 'center_y': .5}
+        MDIcon:
+            icon: "cancel"
+#            badge_icon: "numeric-10"
+            icon_size: "48sp"
+            theme_text_color: "Custom"
+            text_color: 'red'
+            pos_hint: {"center_x": .95, "center_y": .5}
+
+        MDRaisedButton:
+            id: online_import_start
+            text: "Импорт"
+            pos_hint: {"center_x": .5, "center_y": .3}
+
+        MDRaisedButton:
+            id: next
+            text: "Выход"
+            md_bg_color: 'red'
+            pos_hint: {"center_x": 0.9, "center_y": 0.1}
+            on_release: app.stop()
