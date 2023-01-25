@@ -1,8 +1,9 @@
 import threading
-
+import json
 import requests
 from kivy.clock import mainthread, Clock
 from kivy.uix.screenmanager import Screen
+from kivymd.app import MDApp
 from requests.auth import HTTPBasicAuth
 
 
@@ -47,6 +48,9 @@ class AccountScreen(Screen):
             url = 'https://online.autodealer.ru/api/tenantUsers/current'
             current = r.get(url)
             print(current.status_code)
+            current_json = json.loads(current.text)
+            app =MDApp.get_running_app()
+            app.owner = current_json['owner']
         print(i)
         self.spinner_toggle()
         self.success_icon(i)

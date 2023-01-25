@@ -87,7 +87,17 @@
         MDRaisedButton:
             id: online_import_start
             text: "Импорт"
+            disabled: True if not app.owner else False
             pos_hint: {"center_x": .5, "center_y": .3}
+
+        MDLabel:
+            id: owner_status
+            text: 'Импорт доступен только Владельцу программы'
+            theme_text_color: "Custom"
+            text_color: 'red'
+            halign: 'center'
+            opacity: 0 if app.owner else 1
+            pos_hint: {"center_x": .5, "center_y": .25}
 
         MDRaisedButton:
             id: next
