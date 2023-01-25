@@ -49,8 +49,9 @@ class AccountScreen(Screen):
             current = r.get(url)
             print(current.status_code)
             current_json = json.loads(current.text)
-            app =MDApp.get_running_app()
+            app = MDApp.get_running_app()
             app.owner = current_json['owner']
+            app.session = r
         print(i)
         self.spinner_toggle()
         self.success_icon(i)

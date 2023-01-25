@@ -8,9 +8,10 @@ class HomeScreen(MDScreen):
 
     check_all_flag = True
     def on_enter(self, *args):
-
         path = os.getcwd()
         self.ids.output_dir.text = path
+        app = MDApp.get_running_app()
+        app.path = path
 
 
 
@@ -87,6 +88,9 @@ class HomeScreen(MDScreen):
         try:
             path = filechooser.choose_dir()[0]
             self.ids.output_dir.text = path
+            app = MDApp.get_running_app()
+            app.path = path
+            os.chdir(path)
         except Exception as e:
             print(e)
 

@@ -20,12 +20,12 @@
             halign: "left"
             size_hint_x: .4
             theme_text_color: "Custom"
-            text_color: app.theme_cls.primary_color if clients_check.active == True else 'black'
+            text_color: app.theme_cls.primary_color if clients_online_check.active == True else 'black'
             font_size: '20sp'
-            bold: True if clients_check.active == True else False
+            bold: True if clients_online_check.active == True else False
             pos_hint: {'center_x': .25, 'center_y': .7}
         MDCheckbox:
-            id: clients_check
+            id: clients_online_check
             size_hint: None, None
             size: dp(48), dp(48)
             active: True
@@ -44,12 +44,12 @@
             halign: "left"
             size_hint_x: .4
             theme_text_color: "Custom"
-            text_color: app.theme_cls.primary_color if nomenclature_check.active == True else 'black'
+            text_color: app.theme_cls.primary_color if nomenclature_online_check.active == True else 'black'
             font_size: '20sp'
-            bold: True if nomenclature_check.active == True else False
+            bold: True if nomenclature_online_check.active == True else False
             pos_hint: {'center_x': .25, 'center_y': .6}
         MDCheckbox:
-            id: nomenclature_check
+            id: nomenclature_online_check
             size_hint: None, None
             size: dp(48), dp(48)
             pos_hint: {'center_x': .3, 'center_y': .6}
@@ -67,12 +67,12 @@
             halign: "left"
             size_hint_x: .4
             theme_text_color: "Custom"
-            text_color: app.theme_cls.primary_color if work_check.active == True else 'black'
+            text_color: app.theme_cls.primary_color if work_online_check.active == True else 'black'
             font_size: '20sp'
-            bold: True if work_check.active == True else False
+            bold: True if work_online_check.active == True else False
             pos_hint: {'center_x': .25, 'center_y': .5}
         MDCheckbox:
-            id: work_check
+            id: work_online_check
             size_hint: None, None
             size: dp(48), dp(48)
             pos_hint: {'center_x': .3, 'center_y': .5}
@@ -87,8 +87,8 @@
         MDRaisedButton:
             id: online_import_start
             text: "Импорт"
-            disabled: True if not app.owner else False
             pos_hint: {"center_x": .5, "center_y": .3}
+            on_release: root.import_online()
 
         MDLabel:
             id: owner_status
@@ -96,7 +96,6 @@
             theme_text_color: "Custom"
             text_color: 'red'
             halign: 'center'
-            opacity: 0 if app.owner else 1
             pos_hint: {"center_x": .5, "center_y": .25}
 
         MDRaisedButton:
