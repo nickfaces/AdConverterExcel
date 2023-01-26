@@ -52,7 +52,15 @@ class OnlineImportScreen(Screen):
         os.chdir(path)
         with open('clients.xlsx', 'rb') as f:
             r = app.session
-            sadasd = r.post('https://online.autodealer.ru/api/back/files', files={'clients.xlsx': f})
+            headers = {'Accept': '*/*',
+                        'Accept-Encoding': 'gzip, deflate, br',
+                        'Accept-Language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
+                        'Connection': 'keep-alive',
+                        'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryhwIhGUgh7owjR96x',}
+                        # 'sec-ch-ua': "Chromium";v="106", "Google Chrome";v="106", "Not;A=Brand";v="99"
+                        # 'sec-ch-ua-mobile': '?0'
+                        # 'sec-ch-ua-platform': "Linux"}
+            sadasd = r.post('https://online.autodealer.ru/api/back/files',headers=headers, files={'clients.xlsx': f})
             jsans = json.loads(sadasd.text)
             print(jsans)
 

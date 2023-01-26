@@ -83,8 +83,8 @@ class ClientsScreen(MDScreen):
         app.BankListD = BankListD
 
         # for i in range(2):
-        for i in range(len(ItemListD + ContactListD + AutoListD + BankListD)):
-            item_list = ItemListD + ContactListD + AutoListD + BankListD
+        for i in range(len(ItemListD + ContactListD + AutoListD + BankListD + app.ContragentAttributesItemD)):
+            item_list = ItemListD + ContactListD + AutoListD + BankListD + app.ContragentAttributesItemD
             item = item_list[i]
             my_vid = ClientItem()
             my_vid.label_text = item['label_text']
@@ -158,8 +158,6 @@ class ClientsScreen(MDScreen):
             my_vid.textfield_id = item['textfield_id']
             my_grid = self.ids.my_grid
             my_grid.add_widget(my_vid)
-
-
 
     def menu_callback(self, text_item, name):
         self.menu.dismiss()

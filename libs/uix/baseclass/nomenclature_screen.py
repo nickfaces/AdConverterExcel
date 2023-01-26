@@ -64,8 +64,15 @@ class NomenclatureScreen(MDScreen):
         ]
 
         # for i in range(2):
-        for i in range(len(ItemListD)):
-            item_list = ItemListD
+        app = MDApp.get_running_app()
+
+        try:
+            check_attr = app.NomenclatureAttributesItemD
+            app.NomenclatureAttributesItemD = check_attr
+        except:
+            app.NomenclatureAttributesItemD = []
+        for i in range(len(ItemListD + app.NomenclatureAttributesItemD)):
+            item_list = ItemListD + app.NomenclatureAttributesItemD
             item = item_list[i]
             my_vid = NomenclatureItem()
             my_vid.label_text = item['label_text']
@@ -114,9 +121,9 @@ class NomenclatureScreen(MDScreen):
 
     def import_file(self):
         start = time.time()
-        current_path = self.manager.get_screen("home").ids.clients_file.text
-        clients_file = pd.read_excel(current_path)
-        kol = len(clients_file.index)
+        current_path = self.manager.get_screen("home").ids.nomenclature_file.text
+        nomenclature_file = pd.read_excel(current_path)
+        kol = len(nomenclature_file.index)
         df3 = pd.DataFrame()
 
         pol = self.ids.my_nomeclature_grid.children
@@ -129,7 +136,7 @@ class NomenclatureScreen(MDScreen):
         for pl in plo_out:
             try:
                 if pl['dropdown_item'] != '' and pl['textfield'] == '':
-                    df3[pl['label']] = clients_file[pl['dropdown_item']]
+                    df3[pl['label']] = nomenclature_file[pl['dropdown_item']]
             except Exception as e:
                 print(e)
 
@@ -144,7 +151,7 @@ class NomenclatureScreen(MDScreen):
 
         print(df3)
 
-        for i, row in clients_file.iterrows():
+        for i, row in nomenclature_file.iterrows():
             Clock.schedule_interval(lambda dt: self.set_current_item_label(i), 1)
 
         writer = pd.ExcelWriter(r'nomenclature.xlsx')
