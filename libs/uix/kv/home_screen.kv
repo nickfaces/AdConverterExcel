@@ -1,12 +1,20 @@
 <HomeScreen>
     MDScreen:
+
+        Image:
+            #size: self.size
+            source: "logo.webp"
+            allow_stretch: True
+            keep_ratio: True
+            pos_hint: {"center_x": .5, "center_y": .9}
+            size_hint: .7, .1
         MDLabel:
             text: 'Что импортировать?'
             bold: True
             halign: "center"
             font_size: '20sp'
             size_hint_x: .8
-            pos_hint: {'center_x': .5, 'center_y': .9}
+            pos_hint: {'center_x': .5, 'center_y': .75}
         MDLabel:
             text: 'Клиенты'
             halign: "left"
@@ -15,17 +23,17 @@
             text_color: app.theme_cls.primary_color if clients_check.active == True else 'black'
             font_size: '20sp'
             bold: True if clients_check.active == True else False
-            pos_hint: {'center_x': .25, 'center_y': .8}
+            pos_hint: {'center_x': .25, 'center_y': .65}
         MDCheckbox:
             id: clients_check
             size_hint: None, None
             size: dp(48), dp(48)
             active: True
-            pos_hint: {'center_x': .3, 'center_y': .8}
+            pos_hint: {'center_x': .3, 'center_y': .65}
         MDTextField:
             id: clients_file
             halign: "center"
-            pos_hint: {"center_x": .6, "center_y": .8}
+            pos_hint: {"center_x": .6, "center_y": .65}
             size_hint_x: .45
             disabled: 'True'
         MDIconButton:
@@ -33,7 +41,7 @@
             theme_icon_color: "Custom"
             icon_color: app.theme_cls.primary_color
             icon_size: "36sp"
-            pos_hint: {"center_x": .9, "center_y": .8}
+            pos_hint: {"center_x": .9, "center_y": .65}
             disabled: True if clients_check.active != True else False
             on_release: root.clients_filechoose()
         MDIcon:
@@ -42,7 +50,7 @@
             icon_size: "48sp"
             theme_text_color: "Custom"
             text_color: 'green' if clients_file.text != '' else 'gray'
-            pos_hint: {"center_x": .95, "center_y": .8}
+            pos_hint: {"center_x": .95, "center_y": .65}
 
 
         MDLabel:
@@ -53,16 +61,16 @@
             text_color: app.theme_cls.primary_color if nomenclature_check.active == True else 'black'
             font_size: '20sp'
             bold: True if nomenclature_check.active == True else False
-            pos_hint: {'center_x': .25, 'center_y': .7}
+            pos_hint: {'center_x': .25, 'center_y': .55}
         MDCheckbox:
             id: nomenclature_check
             size_hint: None, None
             size: dp(48), dp(48)
-            pos_hint: {'center_x': .3, 'center_y': .7}
+            pos_hint: {'center_x': .3, 'center_y': .55}
         MDTextField:
             id: nomenclature_file
             halign: "center"
-            pos_hint: {"center_x": .6, "center_y": .7}
+            pos_hint: {"center_x": .6, "center_y": .55}
             size_hint_x: .45
             disabled: 'True'
         MDIconButton:
@@ -70,7 +78,7 @@
             theme_icon_color: "Custom"
             icon_color: app.theme_cls.primary_color
             icon_size: "36sp"
-            pos_hint: {"center_x": .9, "center_y": .7}
+            pos_hint: {"center_x": .9, "center_y": .55}
             disabled: True if nomenclature_check.active != True else False
             on_release: root.nomenclature_filechoose()
         MDIcon:
@@ -79,7 +87,7 @@
             icon_size: "48sp"
             theme_text_color: "Custom"
             text_color: 'green' if nomenclature_file.text != '' else 'gray'
-            pos_hint: {"center_x": .95, "center_y": .7}
+            pos_hint: {"center_x": .95, "center_y": .55}
 
 
         MDLabel:
@@ -90,16 +98,16 @@
             text_color: app.theme_cls.primary_color if work_check.active == True else 'black'
             font_size: '20sp'
             bold: True if work_check.active == True else False
-            pos_hint: {'center_x': .25, 'center_y': .6}
+            pos_hint: {'center_x': .25, 'center_y': .45}
         MDCheckbox:
             id: work_check
             size_hint: None, None
             size: dp(48), dp(48)
-            pos_hint: {'center_x': .3, 'center_y': .6}
+            pos_hint: {'center_x': .3, 'center_y': .45}
         MDTextField:
             id: work_file
             halign: "center"
-            pos_hint: {"center_x": .6, "center_y": .6}
+            pos_hint: {"center_x": .6, "center_y": .45}
             size_hint_x: .45
             disabled: 'Tсфrue'
         MDIconButton:
@@ -107,7 +115,7 @@
             theme_icon_color: "Custom"
             icon_color: app.theme_cls.primary_color
             icon_size: "36sp"
-            pos_hint: {"center_x": .9, "center_y": .6}
+            pos_hint: {"center_x": .9, "center_y": .45}
             disabled: True if work_check.active != True else False
             on_release: root.work_filechoose()
         MDIcon:
@@ -116,7 +124,7 @@
             icon_size: "48sp"
             theme_text_color: "Custom"
             text_color: 'green' if work_file.text != '' else 'gray'
-            pos_hint: {"center_x": .95, "center_y": .6}
+            pos_hint: {"center_x": .95, "center_y": .45}
 
 
         MDLabel:
@@ -124,7 +132,7 @@
             bold: True
             halign: "center"
             font_size: '20sp'
-            pos_hint: {"center_x": 0.5, "center_y": .4}
+            pos_hint: {"center_x": 0.5, "center_y": .35}
             size_hint_x: .8
 
         MDBoxLayout:
@@ -135,7 +143,7 @@
             MDTextField:
                 id: output_dir
                 halign: "center"
-                pos_hint: {"center_x": 0.5, "center_y": 0.3}
+                pos_hint: {"center_x": 0.5, "center_y": 0.25}
                 size_hint_x: .8
                 disabled: 'True'
 
@@ -144,7 +152,7 @@
                 theme_icon_color: "Custom"
                 icon_color: app.theme_cls.primary_color
                 icon_size: "36sp"
-                pos_hint: {"center_x": .5, "center_y": .3}
+                pos_hint: {"center_x": .5, "center_y": .25}
                 on_release: root.directory_choose()
 
         MDRaisedButton:
