@@ -1,3 +1,4 @@
+import os
 import threading
 from kivymd.app import MDApp
 from kivy.clock import mainthread, Clock
@@ -233,8 +234,9 @@ class ClientsScreen(MDScreen):
         #
         # for i, row in clients_file.iterrows():
         #     Clock.schedule_interval(lambda dt: self.set_current_item_label(i), 1)
-
-
+        app = MDApp.get_running_app()
+        path = app.path
+        os.chdir(path)
         writer = pd.ExcelWriter(r'clients.xlsx')
         df3.to_excel(writer, index=False)
         end = time.time() - start
