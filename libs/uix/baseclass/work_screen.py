@@ -10,7 +10,7 @@ from kivymd.uix.menu import MDDropdownMenu
 import pandas as pd
 from kivy.properties import StringProperty, NumericProperty, ColorProperty, BooleanProperty
 import time
-
+import os
 
 class WorkScreen(MDScreen):
     dialog = None
@@ -135,6 +135,9 @@ class WorkScreen(MDScreen):
         for i, row in work_file.iterrows():
             Clock.schedule_interval(lambda dt: self.set_current_item_label(i), 1)
 
+        app = MDApp.get_running_app()
+        path = app.path
+        os.chdir(path)
         writer = pd.ExcelWriter(r'work.xlsx')
         df3.to_excel(writer, index=False)
         end = time.time() - start
@@ -196,7 +199,6 @@ class WorkScreen(MDScreen):
             self.manager.set_current(screen_list[app.current_screen])
         else:
             self.manager.set_current('online_import')
-
 
 
 class WorkItem(MDCard):

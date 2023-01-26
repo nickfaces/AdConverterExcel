@@ -1,3 +1,4 @@
+import os
 import threading
 from kivymd.app import MDApp
 from kivy.clock import mainthread, Clock
@@ -154,6 +155,9 @@ class NomenclatureScreen(MDScreen):
         for i, row in nomenclature_file.iterrows():
             Clock.schedule_interval(lambda dt: self.set_current_item_label(i), 1)
 
+        app = MDApp.get_running_app()
+        path = app.path
+        os.chdir(path)
         writer = pd.ExcelWriter(r'nomenclature.xlsx')
         df3.to_excel(writer, index=False)
         end = time.time() - start
