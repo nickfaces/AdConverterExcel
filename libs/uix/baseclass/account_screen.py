@@ -74,7 +74,7 @@ class AccountScreen(Screen):
         if status == 0:
             app = MDApp.get_running_app()
             if app.owner == True:
-                icon = 'crown'
+                icon = 'crown-circle'
                 text_color = 'gold'
                 snackbar_text = 'Вы вошли с правами владельца'
             else:
