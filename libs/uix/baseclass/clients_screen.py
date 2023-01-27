@@ -82,7 +82,11 @@ class ClientsScreen(MDScreen):
         app.ContactListD = ContactListD
         app.AutoListD = AutoListD
         app.BankListD = BankListD
-
+        try:
+            check_attr = app.ContragentAttributesItemD
+            app.ContragentAttributesItemD = check_attr
+        except:
+            app.ContragentAttributesItemD = []
         # for i in range(2):
         for i in range(len(ItemListD + ContactListD + AutoListD + BankListD + app.ContragentAttributesItemD)):
             item_list = ItemListD + ContactListD + AutoListD + BankListD + app.ContragentAttributesItemD
@@ -191,7 +195,7 @@ class ClientsScreen(MDScreen):
     def show_nocheck_dialog(self):
         if not self.dialog:
             self.dialog = MDDialog(
-                text="Укажите обязательные данные (выделены красным)",
+                text="[color=ff0000]Укажите обязательные данные (выделены красным)[/color]",
             )
         self.dialog.open()
 
@@ -249,15 +253,20 @@ class ClientsScreen(MDScreen):
 
     @mainthread
     def show_alert_dialog(self):
+        app = MDApp.get_running_app()
         self.dialog = MDDialog(
             text="Открыть файл?",
             buttons=[
                 MDFlatButton(
                     text="Открыть",
+                    theme_text_color="Custom",
+                    text_color=app.theme_cls.primary_color,
                     on_release=self.open_file
                 ),
                 MDFlatButton(
                     text="Отмена",
+                    theme_text_color="Custom",
+                    text_color=app.theme_cls.primary_color,
                     on_release=self.dialog_close
                 ),
             ],
