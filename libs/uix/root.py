@@ -3,7 +3,7 @@ import json
 from kivy.core.window import Window
 from kivy.lang import Builder
 from kivy.properties import ListProperty
-from kivy.uix.screenmanager import ScreenManager, FadeTransition
+from kivy.uix.screenmanager import ScreenManager, NoTransition
 
 from libs.applibs import utils
 
@@ -62,7 +62,7 @@ class Root(ScreenManager):
             self.history.append({"name": screen_name, "side": side})
 
         # sets transition direction
-        self.transition.direction = side
+        self.transition = NoTransition()
         # sets to the current screen
         self.current = screen_name
 

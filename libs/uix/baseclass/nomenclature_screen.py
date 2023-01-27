@@ -72,8 +72,13 @@ class NomenclatureScreen(MDScreen):
             app.NomenclatureAttributesItemD = check_attr
         except:
             app.NomenclatureAttributesItemD = []
-        for i in range(len(ItemListD + app.NomenclatureAttributesItemD)):
-            item_list = ItemListD + app.NomenclatureAttributesItemD
+        try:
+            check_prices = app.PricesItemD
+            app.PricesItemD = check_prices
+        except:
+            app.PricesItemD = []
+        for i in range(len(ItemListD + app.NomenclatureAttributesItemD + app.PricesItemD)):
+            item_list = ItemListD + app.NomenclatureAttributesItemD + app.PricesItemD
             item = item_list[i]
             my_vid = NomenclatureItem()
             my_vid.label_text = item['label_text']

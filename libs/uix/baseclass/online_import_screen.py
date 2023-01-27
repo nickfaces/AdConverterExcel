@@ -10,18 +10,25 @@ from kivymd.app import MDApp
 class OnlineImportScreen(Screen):
 
     def on_enter(self, *args):
-        app = MDApp.get_running_app()
-        owner = app.owner
-        if owner == False:
+        try:
+            app = MDApp.get_running_app()
+            owner = app.owner
+            if owner == False:
+                self.ids.online_import_start.disabled = True
+                self.ids.clients_online_check.disabled = True
+                self.ids.nomenclature_online_check.disabled = True
+                self.ids.work_online_check.disabled = True
+                self.ids.owner_status.opacity = 1
+            else:
+                self.ids.online_import_start.disabled = False
+                self.ids.owner_status.opacity = 0
+                self.check_files()
+        except:
             self.ids.online_import_start.disabled = True
             self.ids.clients_online_check.disabled = True
             self.ids.nomenclature_online_check.disabled = True
             self.ids.work_online_check.disabled = True
             self.ids.owner_status.opacity = 1
-        else:
-            self.ids.online_import_start.disabled = False
-            self.ids.owner_status.opacity = 0
-            self.check_files()
 
     def check_files(self):
         app = MDApp.get_running_app()

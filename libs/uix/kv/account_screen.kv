@@ -1,4 +1,4 @@
-<AccountScreen>
+<AccountScreen@MDScreen>
     RelativeLayout:
         id: screen_layout
         Image:
@@ -51,6 +51,7 @@
                 root.spinner_toggle()
 
         MDRaisedButton:
+            id: return
             text: "Вернуться"
             pos_hint: {"center_x": .9, "center_y": .1}
             on_release:

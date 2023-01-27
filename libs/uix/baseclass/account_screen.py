@@ -6,11 +6,12 @@ import requests
 from kivy.clock import mainthread, Clock
 from kivy.uix.screenmanager import Screen
 from kivymd.app import MDApp
+from kivymd.uix.screen import MDScreen
 from kivymd.uix.snackbar import Snackbar
 from requests.auth import HTTPBasicAuth
 
 
-class AccountScreen(Screen):
+class AccountScreen(MDScreen):
 
 
     @mainthread
@@ -108,8 +109,8 @@ class AccountScreen(Screen):
         attribute_list = []
         for attribute in attributes:
             if attribute['freeInput'] == True:
-                attribute_list.append({'label_text': 'Атрибут:' + str(attribute['name']), 'label_text_color': 'black',
-                                       'dropdown_item_id': 'attribute_client_' + str(attribute['id']), 'textfield_id': 'attribute_client_' + str(attribute['id']) + '_value'})
+                attribute_list.append({'label_text': 'Атрибут: ' + str(attribute['name']), 'label_text_color': 'black',
+                                       'dropdown_item_id': 'attribute_client' + str(attribute['id']), 'textfield_id': 'attribute_client_' + str(attribute['id']) + '_value'})
         print(attribute_list)
         app.ContragentAttributesItemD = attribute_list
 
@@ -120,9 +121,20 @@ class AccountScreen(Screen):
         attribute_list = []
         for attribute in attributes:
             if attribute['freeInput'] == True:
-                attribute_list.append({'label_text': 'Атрибут:' + str(attribute['name']), 'label_text_color': 'black',
-                                       'dropdown_item_id': 'nomenclature_client_' + str(attribute['id']), 'textfield_id': 'nomenclature_client__' + str(attribute['id']) + '_value'})
+                attribute_list.append({'label_text': 'Атрибут: ' + str(attribute['name']), 'label_text_color': 'black',
+                                       'dropdown_item_id': 'attribute_nomenclature' + str(attribute['id']), 'textfield_id': 'attribute_nomenclature_' + str(attribute['id']) + '_value'})
         print(attribute_list)
         app.NomenclatureAttributesItemD = attribute_list
         print('sadasdasd')
 
+        url = 'https://online.autodealer.ru/api/nomenclaturePriceColumns/'
+        prices_get = session.get(url=url)
+        prices = json.loads(prices_get.text)
+        prices_list = []
+        for price in prices:
+            if price['active'] == True:
+                prices_list.append({'label_text': str(price['fullName']), 'label_text_color': 'black',
+                                       'dropdown_item_id': 'price_' + str(price['id']), 'textfield_id': 'price_' + str(price['id']) + '_value'})
+        print(prices_list)
+        app.PricesItemD = prices_list
+        print('sadasdasd')
