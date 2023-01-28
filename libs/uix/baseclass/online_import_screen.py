@@ -64,7 +64,8 @@ class OnlineImportScreen(Screen):
 
 
     def import_online_thread(self):
-        self.spinner_toggle('clients_online_import_spin')
+        if self.ids.clients_online_check.active == True:
+            self.spinner_toggle('clients_online_import_spin')
         if self.ids.clients_online_check.active == True:
             clients_path = self.manager.get_screen("home").ids.clients_file.text
             if clients_path == '':
@@ -74,7 +75,8 @@ class OnlineImportScreen(Screen):
             file_name = 'clients.xlxs'
             threading.Thread(target=self.upload_file, kwargs={'path': clients_path, 'part_url': part_url, 'spin': spin_name, 'file_name': file_name}).start()
 
-        self.spinner_toggle('nomenclature_online_import_spin')
+        if self.ids.nomenclature_online_check.active == True:
+            self.spinner_toggle('nomenclature_online_import_spin')
         if self.ids.nomenclature_online_check.active == True:
             nomenclatures_path = self.manager.get_screen("home").ids.nomenclature_file.text
             if nomenclatures_path == '':
@@ -85,7 +87,8 @@ class OnlineImportScreen(Screen):
             threading.Thread(target=self.upload_file,
                              kwargs={'path': nomenclatures_path, 'part_url': part_url, 'spin': spin_name, 'file_name': file_name}).start()
 
-        self.spinner_toggle('work_online_import_spin')
+        if self.ids.work_online_check.active == True:
+            self.spinner_toggle('work_online_import_spin')
         if self.ids.work_online_check.active == True:
             work_path = self.manager.get_screen("home").ids.work_file.text
             if work_path == '':
