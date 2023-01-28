@@ -90,6 +90,13 @@
                     on_release:
                         root.check_choices()
 
+                MDSpinner:
+                    id: clients_adapt_spin
+                    size_hint: None, None
+                    size: dp(36), dp(36)
+                    pos_hint: {'center_x': .7, 'center_y': .5}
+                    active: False
+
                 CarButton:
                     icon: 'car-2-plus'
                     tooltip_text: 'Дополнительный автомобиль'

@@ -234,11 +234,13 @@ class ClientsScreen(MDScreen):
         writer = pd.ExcelWriter(r'clients.xlsx')
         df3.to_excel(writer, index=False)
         writer.save()
+        self.spinner_toggle()
         self.show_alert_dialog()
         self.add_next_button()
 
 
     def import_file_thread(self):
+        self.spinner_toggle()
         threading.Thread(target=(self.import_file)).start()
 
     @mainthread
@@ -297,6 +299,13 @@ class ClientsScreen(MDScreen):
             self.manager.set_current(screen_list[app.current_screen])
         else:
             self.manager.set_current('online_import')
+
+    @mainthread
+    def spinner_toggle(self):
+        if self.ids.clients_adapt_spin.active == False:
+            self.ids.clients_adapt_spin.active = True
+        else:
+            self.ids.clients_adapt_spin.active = False
 
 class ClientItem(MDCard):
     label_text = StringProperty()

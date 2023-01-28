@@ -159,10 +159,12 @@ class NomenclatureScreen(MDScreen):
         writer = pd.ExcelWriter(r'nomenclature.xlsx')
         df3.to_excel(writer, index=False)
         writer.save()
+        self.spinner_toggle()
         self.show_alert_dialog()
         self.add_next_button()
 
     def import_file_thread(self):
+        self.spinner_toggle()
         threading.Thread(target=(self.import_file)).start()
 
     @mainthread
@@ -221,6 +223,13 @@ class NomenclatureScreen(MDScreen):
         else:
             self.manager.set_current('online_import')
 
+
+    @mainthread
+    def spinner_toggle(self):
+        if self.ids.nomenclature_adapt_spin.active == False:
+            self.ids.nomenclature_adapt_spin.active = True
+        else:
+            self.ids.nomenclature_adapt_spin.active = False
 
 class NomenclatureItem(MDCard):
     label_text = StringProperty()

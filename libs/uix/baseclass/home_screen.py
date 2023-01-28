@@ -17,7 +17,7 @@ class HomeScreen(MDScreen):
 
 
     def check_choices_to_import(self):
-        Clock.schedule_interval(lambda dt: self.spinner_toggle, 1)
+        self.spinner_toggle()
         screen_list = []
         if (self.ids.clients_check.active == True and self.ids.clients_file.text != ''):
             screen_list.append('clients')
@@ -27,7 +27,6 @@ class HomeScreen(MDScreen):
             screen_list.append('work')
         app = MDApp.get_running_app()
         app.screen_list = screen_list
-        self.spinner_toggle()
         Clock.schedule_once(lambda dt: self.check_file(), 1)
 
 
