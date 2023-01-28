@@ -13,6 +13,8 @@ class MainApp(MDApp):
         Window.softinput_mode = "below_target"
 
     def build(self):
+        self.title = 'АвтоДилер'
+        self.icon = 'icon.png'
         self.root = Root()
         self.root.set_current("home")
 
