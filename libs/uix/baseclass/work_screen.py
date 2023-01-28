@@ -9,7 +9,6 @@ from kivymd.uix.dialog import MDDialog
 from kivymd.uix.menu import MDDropdownMenu
 import pandas as pd
 from kivy.properties import StringProperty, NumericProperty, ColorProperty, BooleanProperty
-import time
 import os
 
 class WorkScreen(MDScreen):
@@ -75,8 +74,6 @@ class WorkScreen(MDScreen):
         app = MDApp.get_running_app()
         amount_items = app.amount_items
         progress_proc = ((i + 1) / amount_items) * 100
-        self.progress = 'Обрабатывается ' + str(i + 1) + ' из ' + str(amount_items) + ' (' + str(round(progress_proc)) + \
-                        '%)'
         self.progress_value = progress_proc
 
     def check_choices(self):
@@ -84,8 +81,6 @@ class WorkScreen(MDScreen):
         for child in self.ids.my_grid.children:
             if (child.ids.label_id.text == 'Наименование' and (child.ids.dropdown_item_id.text == '' and child.ids.textfield_id.text == '')):
                 flag = 1
-            else:
-                print('qqqqqqqqqqqq')
         if flag == 1:
             self.show_nocheck_dialog()
         else:
@@ -101,7 +96,6 @@ class WorkScreen(MDScreen):
 
 
     def import_file(self):
-        start = time.time()
         current_path = self.manager.get_screen("home").ids.work_file.text
         work_file = pd.read_excel(current_path)
         kol = len(work_file.index)
@@ -126,23 +120,18 @@ class WorkScreen(MDScreen):
                 if pl['textfield'] != '':
                     df4 = pd.DataFrame({pl['label']: pl['textfield']}, index=range(0, kol))
                     df3[pl['label']] = df4
-                    print(df3)
             except Exception as e:
                 print(e)
 
-        print(df3)
-
-        for i, row in work_file.iterrows():
-            Clock.schedule_interval(lambda dt: self.set_current_item_label(i), 1)
+        # for i, row in work_file.iterrows():
+        #     Clock.schedule_interval(lambda dt: self.set_current_item_label(i), 1)
 
         app = MDApp.get_running_app()
         path = app.path
         os.chdir(path)
         writer = pd.ExcelWriter(r'work.xlsx')
         df3.to_excel(writer, index=False)
-        end = time.time() - start
         writer.save()
-        print('END: ', end)
         self.show_alert_dialog()
         self.add_next_button()
 

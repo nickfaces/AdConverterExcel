@@ -1,5 +1,6 @@
 import os
 import pandas as pd
+from kivy.clock import Clock, mainthread
 from kivymd.uix.screen import MDScreen
 from plyer import filechooser
 from kivymd.app import MDApp
@@ -16,6 +17,7 @@ class HomeScreen(MDScreen):
 
 
     def check_choices_to_import(self):
+        Clock.schedule_interval(lambda dt: self.spinner_toggle, 1)
         screen_list = []
         if (self.ids.clients_check.active == True and self.ids.clients_file.text != ''):
             screen_list.append('clients')
@@ -25,7 +27,8 @@ class HomeScreen(MDScreen):
             screen_list.append('work')
         app = MDApp.get_running_app()
         app.screen_list = screen_list
-
+        self.spinner_toggle()
+        Clock.schedule_once(lambda dt: self.check_file(), 1)
 
 
     def check_file(self):
@@ -54,6 +57,7 @@ class HomeScreen(MDScreen):
         except Exception as e:
             print(e)
 
+        self.spinner_toggle()
         self.goto_import_screen()
 
 
@@ -94,3 +98,9 @@ class HomeScreen(MDScreen):
         except Exception as e:
             print(e)
 
+    @mainthread
+    def spinner_toggle(self):
+        if self.ids.open_files_spin.active == False:
+            self.ids.open_files_spin.active = True
+        else:
+            self.ids.open_files_spin.active = False

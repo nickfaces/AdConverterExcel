@@ -61,11 +61,9 @@ class AccountScreen(MDScreen):
                 app.ContragentAttributesItemD = []
                 self.snackbar_status('400: Bad request')
             else:
-                print(current.status_code)
                 app.owner = current_json['owner']
                 app.session = r
                 self.get_attributes()
-        print(i)
         self.spinner_toggle()
         self.success_icon(i)
 
@@ -105,27 +103,23 @@ class AccountScreen(MDScreen):
         session = app.session
         attributes_get = session.get(url=url)
         attributes = json.loads(attributes_get.text)
-        print(attributes)
         attribute_list = []
         for attribute in attributes:
             if attribute['freeInput'] == True:
                 attribute_list.append({'label_text': 'Атрибут: ' + str(attribute['name']), 'label_text_color': 'black',
                                        'dropdown_item_id': 'attribute_client' + str(attribute['id']), 'textfield_id': 'attribute_client_' + str(attribute['id']) + '_value'})
-        print(attribute_list)
+
         app.ContragentAttributesItemD = attribute_list
 
         url = 'https://online.autodealer.ru/api/nomenclatures/attributesSettings'
         attributes_get = session.get(url=url)
         attributes = json.loads(attributes_get.text)
-        print(attributes)
         attribute_list = []
         for attribute in attributes:
             if attribute['freeInput'] == True:
                 attribute_list.append({'label_text': 'Атрибут: ' + str(attribute['name']), 'label_text_color': 'black',
                                        'dropdown_item_id': 'attribute_nomenclature' + str(attribute['id']), 'textfield_id': 'attribute_nomenclature_' + str(attribute['id']) + '_value'})
-        print(attribute_list)
         app.NomenclatureAttributesItemD = attribute_list
-        print('sadasdasd')
 
         url = 'https://online.autodealer.ru/api/nomenclaturePriceColumns/'
         prices_get = session.get(url=url)
@@ -135,6 +129,4 @@ class AccountScreen(MDScreen):
             if price['active'] == True:
                 prices_list.append({'label_text': str(price['fullName']), 'label_text_color': 'black',
                                        'dropdown_item_id': 'price_' + str(price['id']), 'textfield_id': 'price_' + str(price['id']) + '_value'})
-        print(prices_list)
         app.PricesItemD = prices_list
-        print('sadasdasd')

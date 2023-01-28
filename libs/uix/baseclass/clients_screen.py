@@ -10,7 +10,6 @@ from kivymd.uix.dialog import MDDialog
 from kivymd.uix.menu import MDDropdownMenu
 import pandas as pd
 from kivy.properties import StringProperty, NumericProperty, ColorProperty, BooleanProperty
-import time
 
 class ClientsScreen(MDScreen):
 
@@ -184,8 +183,6 @@ class ClientsScreen(MDScreen):
                     (child.ids.label_id.text == 'Полное наименование' and (child.ids.dropdown_item_id.text == '' and child.ids.textfield_id.text == '')) or \
                     (child.ids.label_id.text == 'Краткое наименование' and (child.ids.dropdown_item_id.text == '' and child.ids.textfield_id.text == '')):
                 flag = 1
-            else:
-                print('qqqqqqqqqqqq')
         if flag == 1:
             self.show_nocheck_dialog()
         else:
@@ -200,7 +197,6 @@ class ClientsScreen(MDScreen):
         self.dialog.open()
 
     def import_file(self):
-        start = time.time()
         current_path = self.manager.get_screen("home").ids.clients_file.text
         clients_file = pd.read_excel(current_path)
         kol = len(clients_file.index)
@@ -225,12 +221,8 @@ class ClientsScreen(MDScreen):
                 if pl['textfield'] != '':
                     df4 = pd.DataFrame({pl['label']: pl['textfield']}, index=range(0, kol))
                     df3[pl['label']] = df4
-                    print(df3)
             except Exception as e:
                 print(e)
-
-
-        print(df3)
 
 
         #
@@ -241,9 +233,7 @@ class ClientsScreen(MDScreen):
         os.chdir(path)
         writer = pd.ExcelWriter(r'clients.xlsx')
         df3.to_excel(writer, index=False)
-        end = time.time() - start
         writer.save()
-        print('END: ', end)
         self.show_alert_dialog()
         self.add_next_button()
 

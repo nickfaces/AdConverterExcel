@@ -35,7 +35,6 @@ class OnlineImportScreen(Screen):
         path = app.path
         os.chdir(path)
         if os.path.isfile('clients.xlsx'):
-            print('clients')
             self.ids.clients_online_check.disabled = False
         else:
             self.ids.clients_online_check.disabled = True
@@ -69,7 +68,6 @@ class OnlineImportScreen(Screen):
                         # 'sec-ch-ua-platform': "Linux"}
             sadasd = r.post('https://online.autodealer.ru/api/back/files',headers=headers, files={'clients.xlsx': f})
             jsans = json.loads(sadasd.text)
-            print(jsans)
 
 
         pass

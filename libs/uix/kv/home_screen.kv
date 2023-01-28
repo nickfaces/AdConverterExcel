@@ -162,7 +162,7 @@
             disabled: True if ((clients_check.active == False or (clients_check.active == True and clients_file.text == '' )) and (nomenclature_check.active == False or (nomenclature_check.active == True and nomenclature_file.text == '' )) and (work_check.active == False or (work_check.active == True and work_file.text == '' ))) else False
             on_release:
                 root.check_choices_to_import()
-                root.check_file()
+#                root.check_file()
 
         MDIconButton:
             id: account
@@ -170,3 +170,10 @@
             md_bg_color: app.theme_cls.primary_color
             pos_hint: {"center_x": 0.5, "center_y": 0.1}
             on_release:  root.manager.set_current("account")
+
+        MDSpinner:
+            id: open_files_spin
+            size_hint: None, None
+            size: dp(60), dp(60)
+            pos_hint: {'center_x': .5, 'center_y': .1}
+            active: False
