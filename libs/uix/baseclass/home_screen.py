@@ -56,8 +56,9 @@ class HomeScreen(MDScreen):
         except Exception as e:
             print(e)
 
-        self.spinner_toggle()
+
         self.goto_import_screen()
+        self.spinner_toggle()
 
 
     def goto_import_screen(self):

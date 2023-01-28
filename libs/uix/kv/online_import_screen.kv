@@ -28,7 +28,6 @@
             id: clients_online_check
             size_hint: None, None
             size: dp(48), dp(48)
-            active: True
             pos_hint: {'center_x': .3, 'center_y': .7}
         MDIcon:
             icon: "cancel"
@@ -37,6 +36,12 @@
             theme_text_color: "Custom"
             text_color: 'red'
             pos_hint: {"center_x": .95, "center_y": .7}
+        MDSpinner:
+            id: clients_online_import_spin
+            size_hint: None, None
+            size: dp(46), dp(46)
+            pos_hint: {"center_x": .95, "center_y": .7}
+            active: False
 
 
         MDLabel:
@@ -60,7 +65,12 @@
             theme_text_color: "Custom"
             text_color: 'red'
             pos_hint: {"center_x": .95, "center_y": .6}
-
+        MDSpinner:
+            id: nomenclature_online_import_spin
+            size_hint: None, None
+            size: dp(46), dp(46)
+            pos_hint: {"center_x": .95, "center_y": .6}
+            active: False
 
         MDLabel:
             text: 'Работы'
@@ -83,12 +93,19 @@
             theme_text_color: "Custom"
             text_color: 'red'
             pos_hint: {"center_x": .95, "center_y": .5}
+        MDSpinner:
+            id: work_online_import_spin
+            size_hint: None, None
+            size: dp(46), dp(46)
+            pos_hint: {"center_x": .95, "center_y": .5}
+            active: False
 
         MDRaisedButton:
             id: online_import_start
             text: "Импорт"
             pos_hint: {"center_x": .5, "center_y": .3}
-            on_release: root.import_online()
+            on_release:
+                root.import_online_thread()
 
         MDLabel:
             id: owner_status
@@ -105,3 +122,4 @@
             md_bg_color: 'red'
             pos_hint: {"center_x": 0.9, "center_y": 0.1}
             on_release: app.stop()
+

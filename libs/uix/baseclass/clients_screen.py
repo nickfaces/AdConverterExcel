@@ -241,7 +241,7 @@ class ClientsScreen(MDScreen):
 
     def import_file_thread(self):
         self.spinner_toggle()
-        threading.Thread(target=(self.import_file)).start()
+        threading.Thread(target=self.import_file).start()
 
     @mainthread
     def show_alert_dialog(self):
