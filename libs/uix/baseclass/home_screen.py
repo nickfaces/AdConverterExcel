@@ -15,7 +15,6 @@ class HomeScreen(MDScreen):
         app.path = path
 
 
-
     def check_choices_to_import(self):
         self.spinner_toggle()
         screen_list = []

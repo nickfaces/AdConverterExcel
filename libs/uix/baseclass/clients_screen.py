@@ -331,7 +331,7 @@ class ClientItem(MDCard):
             caller= caller,
             items=items,
             position="center",
-            width_mult=4,
+            width_mult=8,
         )
         self.menu.open()
 
