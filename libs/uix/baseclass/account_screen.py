@@ -1,10 +1,7 @@
 import threading
 import json
-import time
-
 import requests
 from kivy.clock import mainthread, Clock
-from kivy.uix.screenmanager import Screen
 from kivymd.app import MDApp
 from kivymd.uix.screen import MDScreen
 from kivymd.uix.snackbar import Snackbar
@@ -21,6 +18,7 @@ class AccountScreen(MDScreen):
         else:
             self.ids.auth_spin.active = False
 
+
     def auth_thread(self):
         self.spinner_toggle()
         threading.Thread(target=(self.auth)).start()
@@ -35,8 +33,6 @@ class AccountScreen(MDScreen):
         try:
 
             listitem = r.get(url, auth=HTTPBasicAuth(self.ids.login.text, self.ids.password.text))
-            # app = App.get_running_app()
-            # app.cookies = listitem.cookies
             i = 0
             if listitem.status_code == 204:
                 i = 0

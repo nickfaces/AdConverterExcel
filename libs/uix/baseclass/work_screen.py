@@ -1,6 +1,6 @@
 import threading
 from kivymd.app import MDApp
-from kivy.clock import mainthread, Clock
+from kivy.clock import mainthread
 from kivy.metrics import dp
 from kivymd.uix.screen import MDScreen
 from kivymd.uix.card import MDCard

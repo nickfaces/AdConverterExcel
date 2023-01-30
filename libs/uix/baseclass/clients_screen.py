@@ -1,7 +1,7 @@
 import os
 import threading
 from kivymd.app import MDApp
-from kivy.clock import mainthread, Clock
+from kivy.clock import mainthread
 from kivy.metrics import dp
 from kivymd.uix.screen import MDScreen
 from kivymd.uix.card import MDCard
@@ -224,10 +224,6 @@ class ClientsScreen(MDScreen):
             except Exception as e:
                 print(e)
 
-
-        #
-        # for i, row in clients_file.iterrows():
-        #     Clock.schedule_interval(lambda dt: self.set_current_item_label(i), 1)
         app = MDApp.get_running_app()
         path = app.path
         os.chdir(path)

@@ -2,13 +2,10 @@ import json
 import os
 import threading
 from pathlib import Path
-
-from kivy.clock import mainthread, Clock
+from kivy.clock import mainthread
 from kivy.properties import BooleanProperty, NumericProperty
 from kivymd.uix.dialog import MDDialog
-from requests.auth import HTTPBasicAuth
 from tqdm import tqdm
-import requests
 from requests_toolbelt import MultipartEncoder, MultipartEncoderMonitor
 from kivy.uix.screenmanager import Screen
 from kivymd.app import MDApp
@@ -26,7 +23,7 @@ class OnlineImportScreen(Screen):
             app = MDApp.get_running_app()
             owner = app.owner
             if owner == False:
-                # self.ids.online_import_start.disabled = True
+                self.ids.online_import_start.disabled = True
                 self.ids.clients_online_check.disabled = True
                 self.ids.nomenclature_online_check.disabled = True
                 self.ids.work_online_check.disabled = True
@@ -36,7 +33,7 @@ class OnlineImportScreen(Screen):
                 self.ids.owner_status.opacity = 0
                 self.check_files()
         except:
-            # self.ids.online_import_start.disabled = True
+            self.ids.online_import_start.disabled = True
             self.ids.clients_online_check.disabled = True
             self.ids.nomenclature_online_check.disabled = True
             self.ids.work_online_check.disabled = True
@@ -72,8 +69,9 @@ class OnlineImportScreen(Screen):
                 clients_path = 'clients.xlsx'
             part_url = 'contragents'
             spin_name = 'clients_online_import_spin'
+            icon_name = 'clients_online_import_icon'
             file_name = 'clients.xlxs'
-            threading.Thread(target=self.upload_file, kwargs={'path': clients_path, 'part_url': part_url, 'spin': spin_name, 'file_name': file_name}).start()
+            threading.Thread(target=self.upload_file, kwargs={'path': clients_path, 'part_url': part_url, 'spin': spin_name, 'file_name': file_name, 'icon_name': icon_name}).start()
 
         if self.ids.nomenclature_online_check.active == True:
             self.spinner_toggle('nomenclature_online_import_spin')
@@ -83,9 +81,10 @@ class OnlineImportScreen(Screen):
                 nomenclatures_path = 'nomenclature.xlsx'
             part_url = 'nomenclatures'
             spin_name = 'nomenclature_online_import_spin'
+            icon_name = 'nomenclature_online_import_icon'
             file_name = 'nomenclature.xlxs'
             threading.Thread(target=self.upload_file,
-                             kwargs={'path': nomenclatures_path, 'part_url': part_url, 'spin': spin_name, 'file_name': file_name}).start()
+                             kwargs={'path': nomenclatures_path, 'part_url': part_url, 'spin': spin_name, 'file_name': file_name, 'icon_name': icon_name}).start()
 
         if self.ids.work_online_check.active == True:
             self.spinner_toggle('work_online_import_spin')
@@ -95,10 +94,11 @@ class OnlineImportScreen(Screen):
                 work_path = 'work.xlsx'
             part_url = 'work'
             spin_name = 'work_online_import_spin'
+            icon_name = 'work_online_import_icon'
             file_name = 'work.xlxs'
             threading.Thread(target=self.upload_file,
                              kwargs={'path': work_path, 'part_url': part_url, 'spin': spin_name,
-                                     'file_name': file_name}).start()
+                                     'file_name': file_name, 'icon_name': icon_name}).start()
 
 
     def import_online(self):
@@ -113,7 +113,7 @@ class OnlineImportScreen(Screen):
             self.upload_file(clients_path, 'commonWorks')
 
 
-    def upload_file(self, path, part_url, spin, file_name):
+    def upload_file(self, path, part_url, spin, file_name, icon_name):
         upload_url = 'https://online.autodealer.ru/api/back/files'
         filepath = path
         path = Path(filepath)
@@ -160,12 +160,20 @@ class OnlineImportScreen(Screen):
             if json.loads(answer.text)['errorRowCount'] == 0:
                 url = 'https://online.autodealer.ru/api/' + part_url + '/import/process/' + str(id)
                 answer = r.post(url)
+                self.ids[icon_name].icon = 'check-circle'
+                self.ids[icon_name].text_color = 'green'
                 print(answer.text)
             else:
+                self.ids[icon_name].icon = 'cancel'
+                self.ids[icon_name].text_color = 'red'
                 print('ne zbs')
         except Exception as e:
+            self.ids[icon_name].icon = 'cancel'
+            self.ids[icon_name].text_color = 'red'
             print(e)
             self.show_error_dialog(e)
+            self.ids[icon_name].icon = 'cancel'
+            self.ids[icon_name].text_color = 'red'
 
         self.spinner_toggle(spin)
 
